@@ -22,7 +22,7 @@ else()
 		endif ()
 	endmacro(use_c99)
 
-	add_subdirectory(contrib/cjson)
+	# add_subdirectory(contrib/mujs)
 	add_subdirectory(contrib/glfw)
 	set(build_demo YES)
 
