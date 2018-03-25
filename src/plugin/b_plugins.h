@@ -10,7 +10,7 @@
 #define brsh_plugin_h
 
 #include <r4/src/r4_config.h>
-#include <wsh/wsh.h>
+#include <wsh/src/geo/w_line.h>
 
 #ifdef R4_ENABLE_B_PLUGIN
 
@@ -19,6 +19,8 @@
 typedef void* (*b_plugin_create)(void);
 typedef void (*b_plugin_destroy)(void*);
 typedef int (*b_plugin_update)(void*);
+typedef int (*b_plugin_init)(void*);
+typedef int (*b_plugin_deinit)(void*);
 
 typedef struct
 {
@@ -27,8 +29,8 @@ typedef struct
 	b_plugin_create  create;
 	b_plugin_destroy destroy;
 	b_plugin_update  update;
-	b_plugin_update  init;
-	b_plugin_update  deinit;
+	b_plugin_init    init;
+	b_plugin_deinit  deinit;
 
 	int enabled;
 	int active;

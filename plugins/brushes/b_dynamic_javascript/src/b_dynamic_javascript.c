@@ -10,11 +10,7 @@
 
 #include <stdlib.h>
 
-#include <cjson/cJSON.h>
-
 #include <brsh/brsh.h>
-
-
 
 static int init(void* plugdata)
 {

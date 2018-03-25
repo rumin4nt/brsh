@@ -8,11 +8,9 @@
 
 #include "b_simple.h"
 
-//#include <r4/r4.h>
+#ifdef DEBUG
 #include <stdlib.h>
-
-//#include <binn/binn.h>
-#include <cjson/cJSON.h>
+#endif
 
 #include <brsh/brsh.h>
 
@@ -54,7 +52,9 @@ void brsh_plugin_destroy(void* data)
 	BrshPlugin* plug = (BrshPlugin*)data;
 	free(plug->data);
 	free(plug);
+#ifdef DEBUG
 	printf("Goodbye from plugin land\n");
+#endif
 }
 
 // AppSettings* app_settings = NULL;

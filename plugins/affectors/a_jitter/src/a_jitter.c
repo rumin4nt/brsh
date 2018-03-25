@@ -10,8 +10,6 @@
 
 #include <stdlib.h>
 
-#include <cjson/cJSON.h>
-
 #include <brsh/brsh.h>
 
 static int init(void* plugdata)
@@ -21,7 +19,7 @@ static int init(void* plugdata)
 	return 0;
 }
 
-static int deinit(BrshPlugin* plug)
+static int deinit(void* plugdata)
 {
 	return 0;
 }

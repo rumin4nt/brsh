@@ -33,7 +33,7 @@ endif(${OperatingSystem} MATCHES "linux")
 FIND_LIBRARY(PM_LIBRARY portaudio)
 
 if(${OperatingSystem} MATCHES "macos")
-	LINK_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/contrib/platform/darwin )
+	# LINK_DIRECTORIES(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/contrib/platform/darwin )
 endif(${OperatingSystem} MATCHES "macos")
 
 add_library(a_jitter SHARED ${sources})
