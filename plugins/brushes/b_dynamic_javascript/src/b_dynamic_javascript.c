@@ -8,16 +8,13 @@
 
 #include "b_dynamic_javascript.h"
 
-#include <r4/r4.h>
 #include <stdlib.h>
 
-#include <binn/binn.h>
 #include <cjson/cJSON.h>
 
 #include <brsh/brsh.h>
 
-AppSettings   app_settings;
-AppExtensions app_extensions;
+
 
 static int init(void* plugdata)
 {
@@ -36,7 +33,7 @@ static int update(void* plugdata)
 	return 0;
 }
 
-void* vblit_plugin_create(void)
+void* brsh_plugin_create(void)
 {
 	BrshPlugin* plug = calloc(1, sizeof(BrshPlugin));
 	plug->type       = -1;
@@ -48,7 +45,7 @@ void* vblit_plugin_create(void)
 	return plug;
 }
 
-void vblit_plugin_destroy(void* data)
+void brsh_plugin_destroy(void* data)
 {
 
 	BrshPlugin* plug = (BrshPlugin*)data;

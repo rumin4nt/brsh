@@ -26,9 +26,9 @@ add_library(b_dynamic_python SHARED ${sources})
 
 target_include_directories (b_dynamic_python PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include)
 target_include_directories (b_dynamic_python PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib)
-target_include_directories (b_dynamic_python PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../libs)
+target_include_directories (b_dynamic_python PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs)
 
-target_link_libraries(b_dynamic_python m r4)
+target_link_libraries(b_dynamic_python m)
 
 #file(MAKE_DIRECTORY "/Library/Application Support/vblit/plugins/b_dynamic_python.plugin/")
 #set directory "/Library/Application Support/vblit/plugins/b_dynamic_python.plugin"

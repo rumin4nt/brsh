@@ -19,14 +19,7 @@
 typedef void* (*b_plugin_create)(void);
 typedef void (*b_plugin_destroy)(void*);
 typedef int (*b_plugin_update)(void*);
-/*
 
-enum brsh_plugin_type {
-	FOO,
-	BAR,
-	BAZ;
-}BRSH_PLUGIN_TYPES;
-*/
 typedef struct
 {
 	int type;

@@ -40,9 +40,9 @@ add_library(a_jitter SHARED ${sources})
 
 target_include_directories (a_jitter PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include)
 target_include_directories (a_jitter PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib)
-target_include_directories (a_jitter PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../libs)
+target_include_directories (a_jitter PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs)
 
-target_link_libraries(a_jitter m r4)
+target_link_libraries(a_jitter m)
 
 #file(MAKE_DIRECTORY "/Library/Application Support/vblit/plugins/a_jitter.plugin/")
 #set directory "/Library/Application Support/vblit/plugins/a_jitter.plugin"

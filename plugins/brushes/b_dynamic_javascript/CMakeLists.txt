@@ -40,9 +40,9 @@ add_library(b_dynamic_js SHARED ${sources})
 
 target_include_directories (b_dynamic_js PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include)
 target_include_directories (b_dynamic_js PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib)
-target_include_directories (b_dynamic_js PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../libs)
+target_include_directories (b_dynamic_js PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs)
 
-target_link_libraries(b_dynamic_js m r4)
+target_link_libraries(b_dynamic_js m)
 
 #file(MAKE_DIRECTORY "/Library/Application Support/vblit/plugins/b_dynamic_js.plugin/")
 #set directory "/Library/Application Support/vblit/plugins/b_dynamic_js.plugin"

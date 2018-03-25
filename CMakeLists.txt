@@ -21,9 +21,9 @@ else()
 			set (CMAKE_C_STANDARD 99)
 		endif ()
 	endmacro(use_c99)
-
+	# set(GLFW_BUILD_TESTS OFF)
 	# add_subdirectory(contrib/mujs)
-	add_subdirectory(contrib/glfw)
+	# sadd_subdirectory(contrib/glfw)
 	set(build_demo YES)
 
 	find_package(Doxygen)

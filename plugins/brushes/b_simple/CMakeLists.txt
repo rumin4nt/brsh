@@ -41,8 +41,8 @@ add_library(b_simple SHARED ${sources})
 target_include_directories (b_simple PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include)
 target_include_directories (b_simple PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib)
 target_include_directories (b_simple PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../libs)
-
-target_link_libraries(b_simple m r4)
+target_include_directories (b_simple PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs)
+target_link_libraries(b_simple m)
 
 #file(MAKE_DIRECTORY "/Library/Application Support/vblit/plugins/b_simple.plugin/")
 #set directory "/Library/Application Support/vblit/plugins/b_simple.plugin"
