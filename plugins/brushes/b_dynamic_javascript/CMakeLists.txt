@@ -8,7 +8,6 @@ set(project_name b_dynamic_js)
 
 file(GLOB_RECURSE sources
 	${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
-
 )
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -18,16 +17,14 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-		# Linux specific code
-		SET(OperatingSystem "linux")
-		SET(lib_extension so)
-
+	# Linux specific code
+	SET(OperatingSystem "linux")
+	SET(lib_extension so)
 endif()
 
 IF(WIN32)
-		SET(OperatingSystem "windows")
-		SET(lib_extension dll)
-
+	SET(OperatingSystem "windows")
+	SET(lib_extension dll)
 ENDIF()
 
 
@@ -50,11 +47,6 @@ target_include_directories (b_dynamic_js PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../.
 
 target_link_libraries(b_dynamic_js m)
 
-#file(MAKE_DIRECTORY "/Library/Application Support/vblit/plugins/b_dynamic_js.plugin/")
-#set directory "/Library/Application Support/vblit/plugins/b_dynamic_js.plugin"
-# add_custom_target(b_dynamic_js_mkdir ALL COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}"/Library/Application Support/vblit/plugins/b_dynamic_js.plugin")
-#add_custom_command(b_dynamic_js PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}"/Library/Application Support/vblit/plugins/b_dynamic_js.plugin")
-# execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}"/Library/Application Support/vblit/plugins/b_dynamic_js.plugin")
 
 if(${OperatingSystem} MATCHES "macos")
 	set(plugin_path $ENV{HOME}/Library/Application\ Support)
@@ -70,14 +62,7 @@ set(plugin_name ${project_name}.plugin)
 set(plugin_dir ${plugin_path}/wash/plugins/brushes/${plugin_name})
 set(lib_dest ${plugin_dir}/${project_name}.${lib_extension}})
 
-message(${lib_dest})
 file(MAKE_DIRECTORY ${plugin_dir})
-
-
-#file(MAKE_DIRECTORY ${plugin_path}/wash/)
-
-#message(${plugin_path})
-#add_custom_command(TARGET b_dynamic_js PRE_BUILD COMMAND ${CMAKE_COMMAND} -E #make_directory ${plugin_path})
 
 
 add_custom_command(
