@@ -4,6 +4,7 @@ project(b_dynamic_js)
 set (b_dynamic_js_VERSION_MAJOR 0)
 set (b_dynamic_js_VERSION_MINOR 0)
 set (b_dynamic_js_VERSION_PATCH 1)
+set(project_name b_dynamic_js)
 
 file(GLOB_RECURSE sources
 	${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
@@ -13,15 +14,20 @@ file(GLOB_RECURSE sources
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	 # Mac OS X specific code
 	 SET(OperatingSystem "macos")
-ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+	 SET(lib_extension dylib)
+endif()
 
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 		# Linux specific code
 		SET(OperatingSystem "linux")
-ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+		SET(lib_extension so)
+
+endif()
 
 IF(WIN32)
 		SET(OperatingSystem "windows")
+		SET(lib_extension dll)
+
 ENDIF()
 
 
@@ -49,21 +55,33 @@ target_link_libraries(b_dynamic_js m)
 # add_custom_target(b_dynamic_js_mkdir ALL COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}"/Library/Application Support/vblit/plugins/b_dynamic_js.plugin")
 #add_custom_command(b_dynamic_js PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}"/Library/Application Support/vblit/plugins/b_dynamic_js.plugin")
 # execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}"/Library/Application Support/vblit/plugins/b_dynamic_js.plugin")
-add_custom_command(TARGET b_dynamic_js PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory $ENV{HOME}/Library/Application\ Support/wash/plugins/b_dynamic_js.plugin)
 
 if(${OperatingSystem} MATCHES "macos")
+	set(plugin_path $ENV{HOME}/Library/Application\ Support)
+endif()
+
+if(${OperatingSystem} MATCHES "linux")
+	set(plugin_path $ENV{HOME}/.config/space.ruminant)
+endif()
+
+execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${plugin_path})
+
+set(plugin_name ${project_name}.plugin)
+set(plugin_dir ${plugin_path}/wash/plugins/brushes/${plugin_name})
+set(lib_dest ${plugin_dir}/${project_name}.${lib_extension}})
+
+message(${lib_dest})
+file(MAKE_DIRECTORY ${plugin_dir})
+
+
+#file(MAKE_DIRECTORY ${plugin_path}/wash/)
+
+#message(${plugin_path})
+#add_custom_command(TARGET b_dynamic_js PRE_BUILD COMMAND ${CMAKE_COMMAND} -E #make_directory ${plugin_path})
+
 
 add_custom_command(
-				TARGET b_dynamic_js POST_BUILD
-				COMMAND ${CMAKE_COMMAND} -E copy
-								${CMAKE_CURRENT_BINARY_DIR}/libb_dynamic_js.dylib
-		$ENV{HOME}/Library/Application\ Support/wash/brushes/b_dynamic_js.plugin/libb_dynamic_js.plugin.dylib)
-
-
-#add_custom_command(
-#        TARGET b_dynamic_js POST_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy
-#                ${CMAKE_CURRENT_BINARY_DIR}/libb_dynamic_js.dylib
-#		$ENV{HOME}/Library/Application\ Support/comms/plugins/b_dynamic_js.plugin/libb_dynamic_js.plugin.dylib)
-
-endif(${OperatingSystem} MATCHES "macos")
+		TARGET b_dynamic_js POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+		${CMAKE_CURRENT_BINARY_DIR}/lib${project_name}.${lib_extension}
+		${lib_dest})
