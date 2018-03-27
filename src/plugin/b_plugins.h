@@ -22,22 +22,29 @@ typedef int (*b_plugin_update)(void*);
 typedef int (*b_plugin_init)(void*);
 typedef int (*b_plugin_deinit)(void*);
 
+
+typedef enum { BRSH_PLUGIN_TYPE_BRUSH,
+	BRSH_PLUGIN_TYPE_AFFECTOR,
+	BRSH_PLUGIN_TYPE_NONE
+	
+} BrushPluginTypes;
+
 typedef struct
 {
 	int type;
-
+	
 	b_plugin_create  create;
 	b_plugin_destroy destroy;
 	b_plugin_update  update;
 	b_plugin_init    init;
 	b_plugin_deinit  deinit;
-
+	
 	int enabled;
 	int active;
-
+	
 	midi_func callback;
 	void*     data;
-
+	
 	char* version;
 	char* identifier;
 	char* filename;
@@ -47,6 +54,7 @@ typedef struct
 
 void brsh_plugins_load(const char* path);
 void brsh_plugins_unload(void);
+void brsh_plugins_set_search(const char* path);
 
 void brsh_plugins_init(void);
 void brsh_plugins_deinit(void);
