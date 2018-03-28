@@ -9,10 +9,10 @@
 #ifndef brsh_plugin_h
 #define brsh_plugin_h
 
-#include <r4/src/r4_config.h>
+//#include <r4/r4.h>
 #include <wsh/src/geo/w_line.h>
 
-#ifdef R4_ENABLE_B_PLUGIN
+//#ifdef R4_ENABLE_B_PLUGIN
 
 #include <r4/src/io/r_portmidi.h>
 
@@ -66,6 +66,6 @@ BrshPlugin* brsh_plugins_instance(const char* identifier);
 
 void brsh_plugin_update(BrshPlugin*, WLine* line);
 
-#endif // RPLATFORM_IOS
+//#endif // RPLATFORM_IOS
 
 #endif /* brsh_plugin_h */

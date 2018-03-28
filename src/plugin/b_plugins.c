@@ -8,7 +8,8 @@
 
 #include "b_plugins.h"
 
-#ifdef R4_ENABLE_B_PLUGIN
+//#ifdef R4_ENABLE_B_PLUGIN
+
 
 #include "include/tinydir.h"
 #include <dlfcn.h>
@@ -31,7 +32,6 @@ void brsh_plugins_set_search(const char* path)
 
 static const char* get_filename_trunk(const char* path)
 {
-	
 	//from https://stackoverflow.com/questions/43163677/how-do-i-strip-a-file-extension-from-a-string-in-c
 	
 	char* fname = strdup(path);
@@ -62,6 +62,7 @@ void brsh_plugins_unload(void)
 
 void brsh_plugins_init(void)
 {
+#ifndef RPLATFORM_IOS
 	printf("Loading brushes.\n");
 	tinydir_dir dir;
 	tinydir_open(&dir, search_dir);
@@ -98,7 +99,7 @@ void brsh_plugins_init(void)
 	}
 	
 	tinydir_close(&dir);
-	
+#endif
 }
 
 void brsh_plugins_deinit(void)
@@ -107,6 +108,7 @@ void brsh_plugins_deinit(void)
 
 BrshPlugin* brsh_plugin_load(const char* path, const char* name)
 {
+#ifndef RPLATFORM_IOS
 	printf("Attempting to load plugin: %s %s\n", path, name);
 	
 	char buf[PATH_MAX];
@@ -184,11 +186,15 @@ BrshPlugin* brsh_plugin_load(const char* path, const char* name)
 	}
 	
 	return plug;
+#else
+	return NULL;
+#endif
 	
 }
 
 void brsh_plugin_unload(BrshPlugin* plug)
 {
+#ifndef RPLATFORM_IOS
 	printf("Unloading all plugins.\n");
 	
 	printf("Attempting to unload plugin:\n %s\n", plug->path);
@@ -236,6 +242,8 @@ void brsh_plugin_unload(BrshPlugin* plug)
 	}
 	
 	dlclose(handle);
+#endif
+	
 }
 
 
@@ -257,4 +265,4 @@ BrshPlugin* brsh_plugins_instance(const char* identifier)
 	return NULL;
 }
 
-#endif
+//#endif
