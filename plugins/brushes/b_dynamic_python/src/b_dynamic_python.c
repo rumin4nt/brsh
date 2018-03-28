@@ -39,6 +39,8 @@ void* brsh_plugin_create(void)
 	plug->update     = update;
 	plug->init       = init;
 	plug->deinit     = deinit;
+	printf("DYNAMIC PYTHON WOOOOOO\n");
+
 	return plug;
 }
 

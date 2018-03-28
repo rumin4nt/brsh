@@ -113,7 +113,7 @@ macro(build_plugin)
 	set(lib_name "lib${project_name}.${lib_extension}")
 	set(plugin_name ${project_name}.plugin)
 	set(plugin_dir ${plugin_path}/wash/plugins/${plugin_name})
-	set(lib_dest ${plugin_dir}/lib${project_name}.${lib_extension}})
+	set(lib_dest ${plugin_dir}/lib${project_name}.${lib_extension})
 
 
 	file(MAKE_DIRECTORY ${plugin_dir})

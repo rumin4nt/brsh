@@ -29,6 +29,27 @@ void brsh_plugins_set_search(const char* path)
 	search_dir = strdup(path);
 }
 
+static const char* get_filename_trunk(const char* path)
+{
+	
+	//from https://stackoverflow.com/questions/43163677/how-do-i-strip-a-file-extension-from-a-string-in-c
+	
+	char* fname = strdup(path);
+	char* end   = fname + strlen(fname);
+	
+	while (end > fname && *end != '.')
+	{
+		--end;
+	}
+	
+	if (end > fname)
+	{
+		*end = '\0';
+	}
+	
+	return fname;
+}
+
 void brsh_plugins_load(const char* directory)
 {
 }
@@ -57,9 +78,11 @@ void brsh_plugins_init(void)
 				printf("%s\n", file.name);
 				
 				char* buf = calloc(PATH_MAX, sizeof(char));
+				const char* trunk =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       get_filename_trunk(file.name);
+				
 				sprintf(buf, "%s%s%s", search_dir, R4_PATH_SEP, file.name);
 				
-				brsh_plugin_load(buf, file.name);
+				brsh_plugin_load(buf, trunk);
 				
 			}
 		}
@@ -123,6 +146,7 @@ BrshPlugin* brsh_plugin_load(const char* path, const char* name)
 	BrshPlugin* plug = (BrshPlugin*)foo;
 	if (!plug)
 	{
+		dlclose(handle);
 		return NULL;
 	};
 	

@@ -38,6 +38,7 @@ void* brsh_plugin_create(void)
 	plug->update     = update;
 	plug->init       = init;
 	plug->deinit     = deinit;
+	printf("DYNAMIC JAVASCRIPT WOOOOOO\n");
 	return plug;
 }
 
