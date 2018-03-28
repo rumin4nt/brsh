@@ -32,7 +32,7 @@ static int update(void* plugdata)
 void* brsh_plugin_create(void)
 {
 	BrshPlugin* plug = calloc(1, sizeof(BrshPlugin));
-	plug->type       = -1;
+	plug->type       = BRSH_PLUGIN_TYPE_AFFECTOR;
 	plug->identifier = strdup("space.ruminant.v_touchosc");
 	plug->name       = "TouchOsc";
 	plug->update     = update;
