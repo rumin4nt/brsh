@@ -14,10 +14,13 @@
 
 #	probably will add some better type checking and safety later too, idk!
 
+mpoints_x = points_x[:]
+mpoints_y = points_y[:]
+
 import random
 
 mag = 20
 
-for i in xrange(len(xdata)):
-	xdata[i] += -.5 + random.random() * mag
-	ydata[i] += -.5 + random.random() * mag
+for i in xrange(len(mpoints_x)):
+	mpoints_x[i] += -.5 + random.random() * pressure[i] * mag
+	mpoints_y[i] += -.5 + random.random() * pressure[i] * mag
