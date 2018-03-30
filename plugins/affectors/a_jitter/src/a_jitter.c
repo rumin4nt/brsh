@@ -8,9 +8,9 @@
 
 #include "a_jitter.h"
 
+#include <brsh/src/plugin/brsh_plugin.h>
+#include <stdio.h>
 #include <stdlib.h>
-
-#include <brsh/brsh.h>
 
 static int init(void* plugdata)
 {

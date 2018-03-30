@@ -1,13 +1,13 @@
 //
-//  b_brush.h
+//  brsh_brush.h
 //  brsh
 //
 //  Created by vs on 9/20/17.
 //  Copyright © 2017 vs. All rights reserved.
 //
 
-#ifndef b_brush_h
-#define b_brush_h
+#ifndef brsh_brush_h
+#define brsh_brush_h
 
 //#include <wsh/wsh.h>
 
@@ -43,15 +43,15 @@ typedef struct BBrushHnd
 
 typedef void (*brush_update_func)(BBrush*);
 
-void b_brush_update_custom(BBrush* brush, brush_update_func func);
+void brsh_brush_update_custom(BBrush* brush, brush_update_func func);
 
-struct BBrush* b_brush_create(struct WLineHnd hnd, double width);
-struct BBrush* b_brush_copy(struct BBrush* brush, struct WLineHnd hnd);
+struct BBrush* brsh_brush_create(struct WLineHnd hnd, double width);
+struct BBrush* brsh_brush_copy(struct BBrush* brush, struct WLineHnd hnd);
 
-void b_brush_offset(struct BBrush* brush);
+void brsh_brush_offset(struct BBrush* brush);
 
-void b_brush_destroy(struct BBrush*);
-void b_brush_update(BBrush*);
-void b_brush_draw(BBrush*);
+void brsh_brush_destroy(struct BBrush*);
+void brsh_brush_update(BBrush*);
+void brsh_brush_draw(BBrush*);
 
-#endif /* b_brush_h */
+#endif /* brsh_brush_h */

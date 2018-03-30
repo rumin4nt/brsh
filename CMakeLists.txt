@@ -134,7 +134,7 @@ if(${OperatingSystem} MATCHES "linux")
 endif()
 
 
-file(GLOB_RECURSE sources *.c src/*.c)
+file(GLOB sources *.c src/*.c src/plugin/*.c )
 
 add_subdirectory(plugins/brushes/b_simple)
 add_subdirectory(plugins/brushes/b_dynamic_python)

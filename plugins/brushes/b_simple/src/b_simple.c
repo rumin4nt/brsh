@@ -12,8 +12,6 @@
 #include <stdlib.h>
 #endif
 
-#include <brsh/brsh.h>
-
 //AppSettings   app_settings;
 //AppExtensions app_extensions;
 

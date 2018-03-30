@@ -1,12 +1,12 @@
 //
-//  b_brush.c
+//  brsh_brush.c
 //  brsh
 //
 //  Created by vs on 9/20/17.
 //  Copyright © 2017 vs. All rights reserved.
 //
 
-#include "b_brush.h"
+#include "brsh_brush.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -20,13 +20,11 @@
 #include <r4/src/geo/r_gpc.h>
 #include <wsh/src/util/w_line_ops.h>
 
+void brsh_brush_update_custom(BBrush* brush, brush_update_func cb);
+void brsh_brush_update_new_slow(BBrush* brush);
+void brsh_brush_update_old_fast(BBrush* brush);
 
-
-void b_brush_update_custom(BBrush* brush, brush_update_func cb);
-void b_brush_update_new_slow(BBrush* brush);
-void b_brush_update_old_fast(BBrush* brush);
-
-BBrush* b_brush_create(struct WLineHnd ref, double width)
+BBrush* brsh_brush_create(struct WLineHnd ref, double width)
 {
 	BBrush* brush       = calloc(1, sizeof(BBrush));
 	brush->hnd	  = ref;
@@ -40,7 +38,7 @@ BBrush* b_brush_create(struct WLineHnd ref, double width)
 	return brush;
 }
 
-BBrush* b_brush_copy(struct BBrush* old, struct WLineHnd hnd)
+BBrush* brsh_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 {
 
 	if (old == NULL)
@@ -53,7 +51,7 @@ BBrush* b_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 	if (!old)
 		return NULL;
 
-	BBrush* brush       = b_brush_create(hnd, old->width);
+	BBrush* brush       = brsh_brush_create(hnd, old->width);
 	brush->needs_update = old->needs_update;
 
 	if (old->stroke)
@@ -77,7 +75,7 @@ BBrush* b_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 	return brush;
 }
 
-void b_brush_destroy(BBrush* brush)
+void brsh_brush_destroy(BBrush* brush)
 {
 	// free(brush->hnd);
 	brush->hnd.src = NULL;
@@ -93,9 +91,9 @@ void b_brush_destroy(BBrush* brush)
  float dy = y2 - y1;
  float angle = atan2(dy,dx);
  //return atan2(dy, dx);
- 
- 
- 
+
+
+
  if (dy < 0 ) {
  angle += 2 * (float)M_PI;
  }
@@ -105,32 +103,32 @@ void b_brush_destroy(BBrush* brush)
  angle -= 270;
  return angle;
  }
- 
- 
+
+
  static inline float angle_from_points_p(WPoint a, WPoint b)
  {
  return angle_from_points(a.x,a.y, b.x,b.y);
  }
- 
+
  */
 
 /*
- 
+
  static inline float deg2rad(float input){
- 
+
  return M_PI * input / 180 ;
  }
- 
+
  */
 
 //#define mult .125
 
-void b_brush_update_custom(BBrush* brush, brush_update_func func)
+void brsh_brush_update_custom(BBrush* brush, brush_update_func func)
 {
 	func(brush);
 }
 
-void b_brush_update(BBrush* brush)
+void brsh_brush_update(BBrush* brush)
 {
 	if (brush->update_func)
 	{
@@ -140,12 +138,12 @@ void b_brush_update(BBrush* brush)
 	}
 	else
 	{
-		// b_brush_update_new_slow( brush);
-		b_brush_update_old_fast(brush);
+		// brsh_brush_update_new_slow( brush);
+		brsh_brush_update_old_fast(brush);
 	}
 }
 
-void b_brush_offset(struct BBrush* brush)
+void brsh_brush_offset(struct BBrush* brush)
 {
 	//w_line_offset(brush, <#double x#>, <#double y#>)
 }
@@ -164,7 +162,7 @@ static void _brush_tangents(BBrush* brush, WPoint a, WPoint b, double* lx,
 	*ry = b.y + (ps * sin(ang) * brush->width);
 }
 
-void b_brush_update_new_slow(BBrush* brush)
+void brsh_brush_update_new_slow(BBrush* brush)
 {
 	if (!brush)
 	{
@@ -245,7 +243,7 @@ void b_brush_update_new_slow(BBrush* brush)
 	brush->needs_update = false;
 }
 
-void b_brush_update_old_fast(BBrush* brush)
+void brsh_brush_update_old_fast(BBrush* brush)
 {
 
 	if (!brush)

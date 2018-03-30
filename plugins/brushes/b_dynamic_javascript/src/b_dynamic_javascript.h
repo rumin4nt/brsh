@@ -9,6 +9,8 @@
 #ifndef b_dynamic_javascript
 #define b_dynamic_javascript
 
+#include <brsh/brsh.h>
+
 void  brsh_plugin_destroy(void*);
 void* brsh_plugin_create(void);
 void  brsh_plugin_draw(void*);

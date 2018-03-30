@@ -11,7 +11,7 @@
 //#include <r4/r4.h>
 #include <stdlib.h>
 
-#include <brsh/brsh.h>
+#include <brsh/brsh_config.h>
 
 static int init(void* plugdata)
 {

@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57203D9E2050BF2900B227DE /* b_brush.c in Sources */ = {isa = PBXBuildFile; fileRef = 57A005351F738D48003231CC /* b_brush.c */; };
+		57203D9E2050BF2900B227DE /* brsh_brush.c in Sources */ = {isa = PBXBuildFile; fileRef = 57A005351F738D48003231CC /* brsh_brush.c */; };
 		57D5F69B2059DEB500152866 /* brsh.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D5F69A2059DEB500152866 /* brsh.c */; };
-		57D5F69F2059E23B00152866 /* b_plugins.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D5F69D2059E23B00152866 /* b_plugins.h */; };
-		57D5F6A02059E23B00152866 /* b_plugins.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D5F69E2059E23B00152866 /* b_plugins.c */; };
+		57D73269206DE95000726D51 /* brsh_plugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D73268206DE95000726D51 /* brsh_plugin.h */; };
+		57D7326C206DE99400726D51 /* brsh_plugins.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D7326A206DE99400726D51 /* brsh_plugins.h */; };
+		57D7326D206DE99400726D51 /* brsh_plugins.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D7326B206DE99400726D51 /* brsh_plugins.c */; };
+		57D7326F206DE9A100726D51 /* brsh_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 57D7326E206DE9A100726D51 /* brsh_config.h */; };
+		57D73271206DED6500726D51 /* brsh_plugin.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D73270206DED6500726D51 /* brsh_plugin.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		57A005271F738951003231CC /* libbrsh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbrsh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A0052E1F73899C003231CC /* brsh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = brsh.h; path = ../brsh.h; sourceTree = "<group>"; };
-		57A005341F738D48003231CC /* b_brush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b_brush.h; sourceTree = "<group>"; };
-		57A005351F738D48003231CC /* b_brush.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = b_brush.c; sourceTree = "<group>"; };
+		57A005341F738D48003231CC /* brsh_brush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brsh_brush.h; sourceTree = "<group>"; };
+		57A005351F738D48003231CC /* brsh_brush.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = brsh_brush.c; sourceTree = "<group>"; };
 		57D5F69A2059DEB500152866 /* brsh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = brsh.c; path = ../brsh.c; sourceTree = "<group>"; };
-		57D5F69D2059E23B00152866 /* b_plugins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b_plugins.h; sourceTree = "<group>"; };
-		57D5F69E2059E23B00152866 /* b_plugins.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = b_plugins.c; sourceTree = "<group>"; };
+		57D73268206DE95000726D51 /* brsh_plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brsh_plugin.h; sourceTree = "<group>"; };
+		57D7326A206DE99400726D51 /* brsh_plugins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brsh_plugins.h; sourceTree = "<group>"; };
+		57D7326B206DE99400726D51 /* brsh_plugins.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brsh_plugins.c; sourceTree = "<group>"; };
+		57D7326E206DE9A100726D51 /* brsh_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brsh_config.h; path = ../brsh_config.h; sourceTree = "<group>"; };
+		57D73270206DED6500726D51 /* brsh_plugin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = brsh_plugin.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +43,7 @@
 		57A0051E1F738951003231CC = {
 			isa = PBXGroup;
 			children = (
+				57D7326E206DE9A100726D51 /* brsh_config.h */,
 				57A0052E1F73899C003231CC /* brsh.h */,
 				57D5F69A2059DEB500152866 /* brsh.c */,
 				57A0052F1F7389B0003231CC /* src */,
@@ -56,8 +63,8 @@
 			isa = PBXGroup;
 			children = (
 				57D5F69C2059E23B00152866 /* plugin */,
-				57A005351F738D48003231CC /* b_brush.c */,
-				57A005341F738D48003231CC /* b_brush.h */,
+				57A005351F738D48003231CC /* brsh_brush.c */,
+				57A005341F738D48003231CC /* brsh_brush.h */,
 			);
 			name = src;
 			path = ../src;
@@ -66,8 +73,10 @@
 		57D5F69C2059E23B00152866 /* plugin */ = {
 			isa = PBXGroup;
 			children = (
-				57D5F69D2059E23B00152866 /* b_plugins.h */,
-				57D5F69E2059E23B00152866 /* b_plugins.c */,
+				57D73268206DE95000726D51 /* brsh_plugin.h */,
+				57D73270206DED6500726D51 /* brsh_plugin.c */,
+				57D7326A206DE99400726D51 /* brsh_plugins.h */,
+				57D7326B206DE99400726D51 /* brsh_plugins.c */,
 			);
 			path = plugin;
 			sourceTree = "<group>";
@@ -79,7 +88,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57D5F69F2059E23B00152866 /* b_plugins.h in Headers */,
+				57D7326F206DE9A100726D51 /* brsh_config.h in Headers */,
+				57D73269206DE95000726D51 /* brsh_plugin.h in Headers */,
+				57D7326C206DE99400726D51 /* brsh_plugins.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,9 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57203D9E2050BF2900B227DE /* b_brush.c in Sources */,
+				57203D9E2050BF2900B227DE /* brsh_brush.c in Sources */,
 				57D5F69B2059DEB500152866 /* brsh.c in Sources */,
-				57D5F6A02059E23B00152866 /* b_plugins.c in Sources */,
+				57D7326D206DE99400726D51 /* brsh_plugins.c in Sources */,
+				57D73271206DED6500726D51 /* brsh_plugin.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

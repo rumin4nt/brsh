@@ -9,8 +9,9 @@
 #ifndef brsh_h
 #define brsh_h
 
-#include "src/b_brush.h"
-#include "src/plugin/b_plugins.h"
+#include "src/brsh_brush.h"
+#include "src/plugin/brsh_plugin.h"
+#include "src/plugin/brsh_plugins.h"
 
 #define BRSH_VERSION_MAJOR 0
 #define BRSH_VERSION_MINOR 0

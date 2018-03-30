@@ -9,6 +9,8 @@
 #ifndef b_simple_brush_h
 #define b_simple_brush_h
 
+#include <brsh/brsh.h>
+
 void  brsh_plugin_destroy(void*);
 void* brsh_plugin_create(void);
 void  brsh_plugin_draw(void*);
