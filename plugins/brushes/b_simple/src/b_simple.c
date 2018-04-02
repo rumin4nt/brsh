@@ -8,13 +8,9 @@
 
 #include "b_simple.h"
 
-//#include <r4/r4.h>
+#ifdef DEBUG
 #include <stdlib.h>
-
-//#include <binn/binn.h>
-#include <cjson/cJSON.h>
-
-#include <brsh/brsh.h>
+#endif
 
 //AppSettings   app_settings;
 //AppExtensions app_extensions;
@@ -39,7 +35,7 @@ static int update(void* plugdata)
 void* brsh_plugin_create(void)
 {
 	BrshPlugin* plug = calloc(1, sizeof(BrshPlugin));
-	plug->type       = -1;
+	plug->type       = BRSH_PLUGIN_TYPE_BRUSH;
 	plug->identifier = strdup("space.ruminant.b_simple");
 	plug->name       = "TouchOsc";
 	plug->update     = update;
@@ -54,7 +50,9 @@ void brsh_plugin_destroy(void* data)
 	BrshPlugin* plug = (BrshPlugin*)data;
 	free(plug->data);
 	free(plug);
+#ifdef DEBUG
 	printf("Goodbye from plugin land\n");
+#endif
 }
 
 // AppSettings* app_settings = NULL;

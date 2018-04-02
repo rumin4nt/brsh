@@ -8,11 +8,9 @@
 
 #include "a_jitter.h"
 
+#include <brsh/src/plugin/brsh_plugin.h>
+#include <stdio.h>
 #include <stdlib.h>
-
-#include <cjson/cJSON.h>
-
-#include <brsh/brsh.h>
 
 static int init(void* plugdata)
 {
@@ -21,7 +19,7 @@ static int init(void* plugdata)
 	return 0;
 }
 
-static int deinit(BrshPlugin* plug)
+static int deinit(void* plugdata)
 {
 	return 0;
 }
@@ -34,7 +32,7 @@ static int update(void* plugdata)
 void* brsh_plugin_create(void)
 {
 	BrshPlugin* plug = calloc(1, sizeof(BrshPlugin));
-	plug->type       = -1;
+	plug->type       = BRSH_PLUGIN_TYPE_AFFECTOR;
 	plug->identifier = strdup("space.ruminant.v_touchosc");
 	plug->name       = "TouchOsc";
 	plug->update     = update;

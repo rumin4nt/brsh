@@ -11,9 +11,7 @@
 //#include <r4/r4.h>
 #include <stdlib.h>
 
-#include <cjson/cJSON.h>
-
-#include <brsh/brsh.h>
+#include <brsh/brsh_config.h>
 
 static int init(void* plugdata)
 {
@@ -35,12 +33,14 @@ static int update(void* plugdata)
 void* brsh_plugin_create(void)
 {
 	BrshPlugin* plug = calloc(1, sizeof(BrshPlugin));
-	plug->type       = -1;
+	plug->type       = BRSH_PLUGIN_TYPE_BRUSH;
 	plug->identifier = strdup("space.ruminant.b_dynamic_python");
 	plug->name       = "TouchOsc";
 	plug->update     = update;
 	plug->init       = init;
 	plug->deinit     = deinit;
+	printf("DYNAMIC PYTHON WOOOOOO\n");
+
 	return plug;
 }
 
