@@ -7,6 +7,21 @@ set(brsh_VERSION_MAJOR 0)
 set(brsh_VERSION_MINOR 0)
 set(brsh_VERSION_PATCH 1)
 
+option(BuildDocumentation "BuildDocumentation" OFF)
+option(BuildDemo "BuildDemo" OFF)
+option(BuildTest "BuildTest" OFF)
+
+if(CMAKE_BUILD_TYPE)
+  if (${CMAKE_BUILD_TYPE} STREQUAL "release")
+    set(BuildDocumentation ON)
+  else()
+    set(CMAKE_BUILD_TYPE "debug")
+  endif()
+else()
+  set(CMAKE_BUILD_TYPE "debug")
+endif()
+
+
 if(${have_r4_environment})
   message("Building within r4 lib structure.")
 else()
@@ -44,9 +59,10 @@ else()
     ${DOXYGEN_FOUND})
 
   if(BUILD_DOCUMENTATION)
-    set(build_doc YES)
+    if(${CMAKE_BUILD_TYPE} STREQUAL "release")
+      set(build_doc YES)
+    endif()
   endif()
-
 endif()
 
 if(${build_doc})

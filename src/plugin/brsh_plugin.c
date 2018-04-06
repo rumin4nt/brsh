@@ -4,6 +4,7 @@
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 BrshPlugin* brsh_plugin_load(const char* path, const char* name)
 {
