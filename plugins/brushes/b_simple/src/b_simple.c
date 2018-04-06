@@ -8,12 +8,8 @@
 
 #include "b_simple.h"
 
-#ifdef DEBUG
-#include <stdlib.h>
-#endif
+#include <brsh/src/plugin/brsh_plugin.h>
 
-//AppSettings   app_settings;
-//AppExtensions app_extensions;
 
 static int init(void* plugdata)
 {
@@ -22,7 +18,7 @@ static int init(void* plugdata)
 	return 0;
 }
 
-static int deinit(BrshPlugin* plug)
+static int deinit(void* plugdata)
 {
 	return 0;
 }

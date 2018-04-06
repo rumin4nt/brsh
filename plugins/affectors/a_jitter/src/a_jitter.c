@@ -11,6 +11,7 @@
 #include <brsh/src/plugin/brsh_plugin.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static int init(void* plugdata)
 {

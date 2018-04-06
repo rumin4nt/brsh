@@ -13,6 +13,10 @@
 #include "src/plugin/brsh_plugin.h"
 #include "src/plugin/brsh_plugins.h"
 
+#ifdef DEBUG
+	#define BRSH_DEBUG
+#endif
+
 #define BRSH_VERSION_MAJOR 0
 #define BRSH_VERSION_MINOR 0
 #define BRSH_VERSION_PATCH 1

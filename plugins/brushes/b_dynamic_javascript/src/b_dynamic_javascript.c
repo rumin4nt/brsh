@@ -8,18 +8,15 @@
 
 #include "b_dynamic_javascript.h"
 
-#include <stdlib.h>
-
-#include <brsh/brsh.h>
+#include <brsh/src/brsh_brush.h>
 
 static int init(void* plugdata)
 {
 	BrshPlugin* plug = (BrshPlugin*)plugdata;
-
 	return 0;
 }
 
-static int deinit(BrshPlugin* plug)
+static int deinit(void* plugdata)
 {
 	return 0;
 }

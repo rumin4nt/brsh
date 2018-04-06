@@ -8,10 +8,10 @@
 
 #include "b_dynamic_python.h"
 
-//#include <r4/r4.h>
-#include <stdlib.h>
 
+#include <stdlib.h>
 #include <brsh/brsh_config.h>
+#include <string.h>
 
 static int init(void* plugdata)
 {
@@ -20,7 +20,7 @@ static int init(void* plugdata)
 	return 0;
 }
 
-static int deinit(BrshPlugin* plug)
+static int deinit(void* plugdata)
 {
 	return 0;
 }
@@ -35,7 +35,7 @@ void* brsh_plugin_create(void)
 	BrshPlugin* plug = calloc(1, sizeof(BrshPlugin));
 	plug->type       = BRSH_PLUGIN_TYPE_BRUSH;
 	plug->identifier = strdup("space.ruminant.b_dynamic_python");
-	plug->name       = "TouchOsc";
+	plug->name       = "Python example brush";
 	plug->update     = update;
 	plug->init       = init;
 	plug->deinit     = deinit;

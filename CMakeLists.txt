@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+
 project(wsh)
 set(project_name wsh)
 
@@ -10,6 +12,9 @@ set(brsh_VERSION_PATCH 1)
 option(BuildDocumentation "BuildDocumentation" OFF)
 option(BuildDemo "BuildDemo" OFF)
 option(BuildTest "BuildTest" OFF)
+option(BuildLibrary "Build the brush library for embedding or linking" OFF)
+option(BuildPlugins "Build the sample plugins" ON)
+option(InstallPlugins "Install the test plugins" OFF)
 
 if(CMAKE_BUILD_TYPE)
   if (${CMAKE_BUILD_TYPE} STREQUAL "release")
@@ -25,6 +30,31 @@ endif()
 if(${have_r4_environment})
   message("Building within r4 lib structure.")
 else()
+
+  find_package(LibWSH)
+  if( WSH_FOUND)
+    add_definitions(-DBRSH_ENABLE_WSH)
+  endif()
+
+  find_package(LibGPC)
+  if (GPC_FOUND)
+    add_definitions(-DBRUSH_ENABLE_GPC)
+  endif()
+
+  find_package(LibGLFW )
+  include_directories(${LibGLFW_INCLUDE_DIRS})
+  set(LIBS ${LIBS} ${LibGLFW_LIBRARIES})
+
+  if (GLFW_FOUND)
+    if (${CMAKE_BUILD_TYPE} STREQUAL "release")
+      set(BuildDemo YES)
+    endif()
+    if(BuildDemo)
+      set(build_demo YES)
+    endif()
+  else()
+    message("Did not find GLFW, cannot build demo.")
+  endif()
 
   IF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     SET(OperatingSystem "macos")
@@ -83,6 +113,7 @@ if(${build_doc})
 endif()
 
 macro(build_plugin)
+
   file(GLOB_RECURSE sources ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 
   IF(${OperatingSystem} MATCHES "macos") # Mac OS X specific code
@@ -101,12 +132,15 @@ macro(build_plugin)
   add_library(${project_name} SHARED ${sources})
 
   target_include_directories(
-    ${project_name} PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include)
-  target_include_directories(${project_name} PUBLIC
-                             ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib)
-  target_include_directories(${project_name} PUBLIC
-                             ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../libs)
+    	${project_name} PUBLIC
+    	${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include
+  	${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib
+ 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../..
+ 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../..
+ 	${CMAKE_SOURCE_DIR}/..
+ 	)
+
+  message(${CMAKE_CURRENT_SOURCE_DIR})
 
   target_link_libraries(${project_name} m)
 
@@ -118,20 +152,24 @@ macro(build_plugin)
     set(plugin_path $ENV{HOME}/.config/space.ruminant)
   endif()
 
-  execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${plugin_path})
+  if(InstallPlugins)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E make_directory ${plugin_path})
 
-  set(lib_name "lib${project_name}.${lib_extension}")
-  set(plugin_name ${project_name}.plugin)
-  set(plugin_dir ${plugin_path}/wash/plugins/${plugin_name})
-  set(lib_dest ${plugin_dir}/lib${project_name}.${lib_extension})
+    set(lib_name "lib${project_name}.${lib_extension}")
+    set(plugin_name ${project_name}.plugin)
+    set(plugin_dir ${plugin_path}/wash/plugins/${plugin_name})
+    set(lib_dest ${plugin_dir}/lib${project_name}.${lib_extension})
 
-  file(MAKE_DIRECTORY ${plugin_dir})
+    file(MAKE_DIRECTORY ${plugin_dir})
 
-  add_custom_command(
-    TARGET ${project_name} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_CURRENT_BINARY_DIR}/lib${project_name}.${lib_extension}
-            ${lib_dest})
+    add_custom_command(
+      TARGET ${project_name} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy
+              ${CMAKE_CURRENT_BINARY_DIR}/lib${project_name}.${lib_extension}
+              ${lib_dest})
+  else()
+    message(Not installing plugin.)
+  endif()
 endmacro()
 
 if(${OperatingSystem} MATCHES "macos")
@@ -142,20 +180,27 @@ if(${OperatingSystem} MATCHES "linux")
   set(plugin_path $ENV{HOME}/.config/space.ruminant)
 endif()
 
-file(GLOB sources *.c src/*.c src/plugin/*.c)
 
-add_subdirectory(plugins/brushes/b_simple)
-add_subdirectory(plugins/brushes/b_dynamic_python)
-# add_subdirectory(plugins/brushes/b_dynamic_javascript)
-add_subdirectory(plugins/affectors/a_jitter)
+if(BuildPlugins)
+  add_subdirectory(plugins/brushes/b_simple)
+  add_subdirectory(plugins/brushes/b_dynamic_python)
+  add_subdirectory(plugins/brushes/b_dynamic_javascript)
+  add_subdirectory(plugins/affectors/a_jitter)
+endif()
 
-add_library(brsh STATIC ${sources})
 
-target_include_directories(brsh PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_include_directories(brsh PUBLIC
-                           ${CMAKE_CURRENT_SOURCE_DIR}/../../contrib/include)
-target_include_directories(brsh PUBLIC
-                           ${CMAKE_CURRENT_SOURCE_DIR}/../../contrib)
-target_include_directories(brsh PUBLIC
-                           ${CMAKE_CURRENT_SOURCE_DIR}/../../contrib/deps)
+if(BuildLibrary)
+  file(GLOB sources *.c src/*.c src/plugin/*.c)
 
+  add_library(brsh STATIC ${sources})
+
+  target_include_directories(brsh PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
+  target_include_directories(brsh PUBLIC
+                             ${CMAKE_CURRENT_SOURCE_DIR}/../../contrib/include)
+  target_include_directories(brsh PUBLIC
+                             ${CMAKE_CURRENT_SOURCE_DIR}/../../contrib)
+  target_include_directories(brsh PUBLIC
+                             ${CMAKE_CURRENT_SOURCE_DIR}/../../contrib/deps)
+
+
+endif()

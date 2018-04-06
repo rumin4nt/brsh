@@ -8,7 +8,6 @@
 
 #include "brsh_plugins.h"
 
-//#ifdef R4_ENABLE_B_PLUGIncluN
 #include "../../brsh_config.h"
 
 #include "include/tinydir.h"
@@ -16,8 +15,8 @@
 #include <mkdirp/mkdirp.h>
 #include <wildcardcmp/wildcardcmp.h>
 
-#include <vector/vector.h>
 #include <stdio.h>
+#include <vector/vector.h>
 
 static struct vector_t plugins;
 
