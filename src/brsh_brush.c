@@ -26,6 +26,7 @@ void brsh_brush_update_old_fast(BBrush* brush);
 
 BBrush* brsh_brush_create(struct WLineHnd ref, double width)
 {
+	printf("Creating brush with width %f\n", width);
 	BBrush* brush       = calloc(1, sizeof(BBrush));
 	brush->hnd	  = ref;
 	brush->needs_update = true;
