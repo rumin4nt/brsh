@@ -16,18 +16,17 @@
 
 #include <brsh/brsh.h>
 
-//#include <r4/src/core/r_math.h>
-//#include <r4/src/geo/r_gpc.h>
-//#include <wsh/src/util/w_line_ops.h>
+#include <r4/src/core/r_math.h>
+#include <r4/src/geo/r_gpc.h>
+#include <wsh/src/util/w_line_ops.h>
 
 void brsh_brush_update_custom(BBrush* brush, brush_update_func cb);
 void brsh_brush_update_new_slow(BBrush* brush);
 void brsh_brush_update_old_fast(BBrush* brush);
 
-BBrush* brsh_brush_create(void* ref, double width)
+BBrush* brsh_brush_create(struct WLineHnd ref, double width)
 {
 	printf("Creating brush with width %f\n", width);
-
 	BBrush* brush       = calloc(1, sizeof(BBrush));
 	brush->hnd	  = ref;
 	brush->needs_update = true;
@@ -37,11 +36,10 @@ BBrush* brsh_brush_create(void* ref, double width)
 	brush->width	= width;
 	brush->update_func  = NULL;
 	brush->tess	 = NULL;
-
 	return brush;
 }
 
-BBrush* brsh_brush_copy(struct BBrush* old, void* wlinehnd_data)
+BBrush* brsh_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 {
 
 	if (old == NULL)

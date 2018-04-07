@@ -12,7 +12,7 @@ set(brsh_VERSION_PATCH 1)
 option(BuildDocumentation "BuildDocumentation" OFF)
 option(BuildDemo "BuildDemo" OFF)
 option(BuildTest "BuildTest" OFF)
-option(BuildLibrary "Build the brush library for embedding or linking" OFF)
+option(BuildLibrary "Build the brush library for embedding or linking" ON)
 option(BuildPlugins "Build the sample plugins" ON)
 option(InstallPlugins "Install the test plugins" OFF)
 
@@ -132,12 +132,13 @@ macro(build_plugin)
   add_library(${project_name} SHARED ${sources})
 
   target_include_directories(
-    	${project_name} PUBLIC
-    	${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include
+    ${project_name} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include
   	${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib
- 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../..
- 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../..
- 	${CMAKE_SOURCE_DIR}/..
+ 	  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../..
+ 	  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../..
+    ${CMAKE_SOURCE_DIR}/..
+    ${CMAKE_SOURCE_DIR}/libs
  	)
 
   message(${CMAKE_CURRENT_SOURCE_DIR})

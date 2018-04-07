@@ -9,10 +9,10 @@
 #ifndef brsh_brush_h
 #define brsh_brush_h
 
+//#include <wsh/wsh.h>
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include <stdbool.h>
+#include <wsh/src/geo/w_line.h>
 
 enum
 {
@@ -25,10 +25,10 @@ enum
 typedef struct BBrush
 {
 	int		brush_type;
-	int		needs_update;
+	bool		needs_update;
 	double		width;
-	void* hnd;
-	void*   stroke;
+	struct WLineHnd hnd;
+	struct WLine*   stroke;
 	double*		data;
 	void*		extra;
 	void*		tess;
@@ -45,8 +45,8 @@ typedef void (*brush_update_func)(BBrush*);
 
 void brsh_brush_update_custom(BBrush* brush, brush_update_func func);
 
-struct BBrush* brsh_brush_create(void* wlinehnd, double width);
-struct BBrush* brsh_brush_copy(struct BBrush* brush, void* wlinehnd );
+struct BBrush* brsh_brush_create(struct WLineHnd hnd, double width);
+struct BBrush* brsh_brush_copy(struct BBrush* brush, struct WLineHnd hnd);
 
 void brsh_brush_offset(struct BBrush* brush);
 
