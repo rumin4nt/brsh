@@ -5,8 +5,9 @@
 int brsh_check_version_match(const char* header_generated_version)
 {
 	char* v = brsh_get_version_string();
-	return (0 == strcmp(v, header_generated_version));
+	int match = (0 == strcmp(v, header_generated_version));
 	free(v);
+	return match;
 }
 
 char* brsh_get_version_string(void)

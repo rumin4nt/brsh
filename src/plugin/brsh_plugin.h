@@ -48,4 +48,9 @@ typedef struct
 	char* path;
 } BrshPlugin;
 
+
+BrshPlugin* brsh_plugin_load(const char* path, const char* name);
+
+void brsh_plugin_unload(BrshPlugin* plug);
+
 #endif /* brsh_plugin_h */

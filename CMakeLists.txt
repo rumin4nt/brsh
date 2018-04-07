@@ -11,7 +11,7 @@ set(brsh_VERSION_PATCH 1)
 
 option(BuildDocumentation "BuildDocumentation" OFF)
 option(BuildDemo "BuildDemo" OFF)
-option(BuildTest "BuildTest" OFF)
+option(BuildTest "BuildTest" ONN)
 option(BuildLibrary "Build the brush library for embedding or linking" ON)
 option(BuildPlugins "Build the sample plugins" ON)
 option(InstallPlugins "Install the test plugins" OFF)
@@ -169,7 +169,7 @@ macro(build_plugin)
               ${CMAKE_CURRENT_BINARY_DIR}/lib${project_name}.${lib_extension}
               ${lib_dest})
   else()
-    message(Not installing plugin.)
+    message("Not installing plugin.")
   endif()
 endmacro()
 

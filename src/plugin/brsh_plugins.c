@@ -9,6 +9,7 @@
 #include "brsh_plugins.h"
 
 #include "../../brsh_config.h"
+#include "brsh_plugin.h"
 
 #include "include/tinydir.h"
 #include <dlfcn.h>
@@ -16,9 +17,9 @@
 #include <wildcardcmp/wildcardcmp.h>
 
 #include <stdio.h>
-#include <vector/vector.h>
 
-static struct vector_t plugins;
+//#include <vector/vector.h>
+//static struct vector_t plugins;
 
 static const char* search_dir = NULL;
 
