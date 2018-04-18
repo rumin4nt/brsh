@@ -51,7 +51,7 @@ struct BBrush* brsh_brush_copy(struct BBrush* brush, struct WLineHnd hnd);
 void brsh_brush_offset(struct BBrush* brush);
 
 void brsh_brush_destroy(struct BBrush*);
-void brsh_brush_update(BBrush*);
+void brsh_brush_update(BBrush* brush, brush_update_func func);
 void brsh_brush_draw(BBrush*);
 
 #endif /* brsh_brush_h */
