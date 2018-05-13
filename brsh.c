@@ -2,6 +2,8 @@
 
 #include "brsh.h"
 
+#include <stdio.h>
+
 int brsh_check_version_match(const char* header_generated_version)
 {
 	char* v = brsh_get_version_string();

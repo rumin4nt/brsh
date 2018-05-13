@@ -129,16 +129,29 @@ void brsh_brush_update_custom(BBrush* brush, brush_update_func func)
 	func(brush);
 }
 
-void brsh_brush_update(BBrush* brush)
+void brsh_brush_update(BBrush* brush, brush_update_func func)
 {
+	//	if we pass a function directly to this function, can assume we are overriding.
+	if ( func )
+	{
+	
+		func(brush);
+		return;
+	}
+	
 	if (brush->update_func)
 	{
 		brush_update_func f = (brush_update_func)brush->update_func;
 
 		f(brush);
+		
 	}
 	else
 	{
+		
+		
+		//f(brush);
+		
 		// brsh_brush_update_new_slow( brush);
 		brsh_brush_update_old_fast(brush);
 	}
