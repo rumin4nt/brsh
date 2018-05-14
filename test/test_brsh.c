@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 
+#include "stdio.h"
 #include <brsh/brsh.h>
 
 int main(int argc, char** argv)
@@ -14,9 +15,12 @@ int main(int argc, char** argv)
 	sprintf(buf, "%d_%d_%d", BRSH_VERSION_MAJOR, BRSH_VERSION_MINOR,
 		BRSH_VERSION_PATCH);
 
-	if (brsh_check_version_match(buf)) {
+	if (brsh_check_version_match(buf))
+	{
 		printf("Version matches.\n");
-	} else {
+	}
+	else
+	{
 		printf("Version does not match!!\n");
 		free(buf);
 		return 88;
