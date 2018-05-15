@@ -18,7 +18,7 @@
 
 #include <r4/src/core/r_math.h>
 #include <r4/src/geo/r_gpc.h>
-#include <wsh/src/util/w_line_ops.h>
+#include <wsh/src/util/wsh_line_ops.h>
 
 void brsh_brush_update_custom(BBrush* brush, brush_update_func cb);
 void brsh_brush_update_new_slow(BBrush* brush);
@@ -58,7 +58,7 @@ BBrush* brsh_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 	if (old->stroke)
 	{
 		// brush->stroke = calloc(1, sizeof(WLine));
-		brush->stroke = w_line_copy(old->stroke);
+		brush->stroke = wsh_line_copy(old->stroke);
 		// memcpy(brush->stroke, old->stroke, sizeof(WLine));
 	}
 
@@ -132,26 +132,24 @@ void brsh_brush_update_custom(BBrush* brush, brush_update_func func)
 void brsh_brush_update(BBrush* brush, brush_update_func func)
 {
 	//	if we pass a function directly to this function, can assume we are overriding.
-	if ( func )
+	if (func)
 	{
-	
+
 		func(brush);
 		return;
 	}
-	
+
 	if (brush->update_func)
 	{
 		brush_update_func f = (brush_update_func)brush->update_func;
 
 		f(brush);
-		
 	}
 	else
 	{
-		
-		
+
 		//f(brush);
-		
+
 		// brsh_brush_update_new_slow( brush);
 		brsh_brush_update_old_fast(brush);
 	}
@@ -159,7 +157,7 @@ void brsh_brush_update(BBrush* brush, brush_update_func func)
 
 void brsh_brush_offset(struct BBrush* brush)
 {
-	//w_line_offset(brush, <#double x#>, <#double y#>)
+	//wsh_line_offset(brush, <#double x#>, <#double y#>)
 }
 
 static void _brush_tangents(BBrush* brush, WPoint a, WPoint b, double* lx,
@@ -193,11 +191,11 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	px = py = x = y = nx = ny = 0;
 	WLine* src		  = brush->hnd.src;
 
-	WLine* cpy = w_line_copy(src);
-	w_line_ops_smooth(cpy, 4);
+	WLine* cpy = wsh_line_copy(src);
+	wsh_line_ops_smooth(cpy, 4);
 	printf("cpy line for brush has %llu points\n", cpy->num);
 	printf("src line for brush has %llu points\n", src->num);
-	WLine* stroke = w_line_create();
+	WLine* stroke = wsh_line_create();
 	for (int i = 0; i < cpy->num - 1; i++)
 	{
 
@@ -214,7 +212,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 		//	first
 		if (i == 0)
 		{
-			w_line_add_point(stroke, p);
+			wsh_line_addrw_point(stroke, p);
 		}
 
 		if (i > 0 && i < cpy->num - 1)
@@ -226,15 +224,15 @@ void brsh_brush_update_new_slow(BBrush* brush)
 
 			_brush_tangents(brush, p, np, &lx, &ly, &rx, &ry);
 
-			WPoint* l = w_point_create_2f(lx, ly);
-			WPoint* r = w_point_create_2f(rx, ry);
-			w_line_add_point(stroke, *l);
-			w_line_add_point(stroke, *r);
+			WPoint* l = wsh_point_create_2f(lx, ly);
+			WPoint* r = wsh_point_create_2f(rx, ry);
+			wsh_line_addrw_point(stroke, *l);
+			wsh_line_addrw_point(stroke, *r);
 		}
 
 		if (i == cpy->num - 2)
 		{
-			w_line_add_point(stroke, p);
+			wsh_line_addrw_point(stroke, p);
 		}
 
 		stroke->closed     = true;
@@ -247,7 +245,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 
 		if (brush->stroke)
 		{
-			w_line_destroy(brush->stroke);
+			wsh_line_destroy(brush->stroke);
 		}
 
 		brush->stroke = stroke;
@@ -270,8 +268,8 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	// printf("Updating brush!\n");
 
 	//	todo make this not horrible
-	WLine* left  = w_line_create();
-	WLine* right = w_line_create();
+	WLine* left  = wsh_line_create();
+	WLine* right = wsh_line_create();
 
 	WLine* l = brush->hnd.src;
 	if (!l)
@@ -296,8 +294,8 @@ void brsh_brush_update_old_fast(BBrush* brush)
 
 		WPoint p1, p2;
 
-		w_point_zero(&p1);
-		w_point_zero(&p2);
+		wsh_point_zero(&p1);
+		wsh_point_zero(&p2);
 
 		p1.x = p.x - (ps * cos(ang) * brush->width);
 		p1.y = p.y - (ps * sin(ang) * brush->width);
@@ -305,17 +303,17 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		p2.x = p.x + (ps * cos(ang) * brush->width);
 		p2.y = p.y + (ps * sin(ang) * brush->width);
 
-		w_line_add_point(left, p1);
-		w_line_add_point(right, p2);
+		wsh_line_addrw_point(left, p1);
+		wsh_line_addrw_point(right, p2);
 	}
 
-	WLine* stroke = w_line_copy(left);
+	WLine* stroke = wsh_line_copy(left);
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
-		w_line_add_point(stroke, right->data[i]);
+		wsh_line_addrw_point(stroke, right->data[i]);
 	}
 
-	// d_color(0,0,0,.5);
+	// drw_color(0,0,0,.5);
 
 	stroke->closed     = true;
 	stroke->has_fill   = true;
@@ -326,19 +324,19 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	stroke->fill.a     = .5;
 
 	//	IMPORTANT
-	w_line_ops_smooth(stroke, 4);
+	wsh_line_ops_smooth(stroke, 4);
 
 	brush->tess = r_gpc_tess_create(stroke);
-	w_line_ops_smooth(stroke, 8);
+	wsh_line_ops_smooth(stroke, 8);
 
-	// d_poly(stroke);
+	// drw_poly(stroke);
 
-	w_line_destroy(left);
-	w_line_destroy(right);
+	wsh_line_destroy(left);
+	wsh_line_destroy(right);
 
 	if (brush->stroke)
 	{
-		w_line_destroy(brush->stroke);
+		wsh_line_destroy(brush->stroke);
 	}
 	brush->stroke = stroke;
 

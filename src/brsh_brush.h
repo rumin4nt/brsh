@@ -12,7 +12,7 @@
 //#include <wsh/wsh.h>
 
 #include <stdbool.h>
-#include <wsh/src/geo/w_line.h>
+#include <wsh/src/geo/wsh_line.h>
 
 enum
 {
