@@ -212,7 +212,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 		//	first
 		if (i == 0)
 		{
-			wsh_line_addrw_point(stroke, p);
+			wsh_line_add_point(stroke, p);
 		}
 
 		if (i > 0 && i < cpy->num - 1)
@@ -226,13 +226,13 @@ void brsh_brush_update_new_slow(BBrush* brush)
 
 			WPoint* l = wsh_point_create_2f(lx, ly);
 			WPoint* r = wsh_point_create_2f(rx, ry);
-			wsh_line_addrw_point(stroke, *l);
-			wsh_line_addrw_point(stroke, *r);
+			wsh_line_add_point(stroke, *l);
+			wsh_line_add_point(stroke, *r);
 		}
 
 		if (i == cpy->num - 2)
 		{
-			wsh_line_addrw_point(stroke, p);
+			wsh_line_add_point(stroke, p);
 		}
 
 		stroke->closed     = true;
@@ -303,14 +303,14 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		p2.x = p.x + (ps * cos(ang) * brush->width);
 		p2.y = p.y + (ps * sin(ang) * brush->width);
 
-		wsh_line_addrw_point(left, p1);
-		wsh_line_addrw_point(right, p2);
+		wsh_line_add_point(left, p1);
+		wsh_line_add_point(right, p2);
 	}
 
 	WLine* stroke = wsh_line_copy(left);
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
-		wsh_line_addrw_point(stroke, right->data[i]);
+		wsh_line_add_point(stroke, right->data[i]);
 	}
 
 	// drw_color(0,0,0,.5);
