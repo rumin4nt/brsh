@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required(VERSION 3.0)
 project(test_brsh)
 set (test_brsh_VERSION_MAJOR 0)
 set (test_brsh_VERSION_MINOR 0)

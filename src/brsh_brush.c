@@ -255,6 +255,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	brush->needs_update = false;
 }
 
+
 void brsh_brush_update_old_fast(BBrush* brush)
 {
 
