@@ -279,8 +279,12 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	if (l->num < 2)
 		return;
 	unsigned long long num = l->num;
-
-	for (int i = 0; i < num; ++i)
+	
+	
+	WPoint first = l->data[0];
+	wsh_line_add_point(left, first);
+	
+	for (int i = 1; i < num; ++i)
 	{
 		WPoint p  = l->data[i];
 		double ps = p.pressure;
@@ -309,11 +313,18 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	}
 
 	WLine* stroke = wsh_line_copy(left);
+	//	todo, replace this loop with the version that I've surely
+	//	already added to the class, yes
+	
+	
+	//wsh_line_concat(stroke, right, -1, -1);
+	
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
 		wsh_line_add_point(stroke, right->data[i]);
 	}
-
+	
+	
 	// drw_color(0,0,0,.5);
 
 	stroke->closed     = true;

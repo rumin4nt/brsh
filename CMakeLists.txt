@@ -194,7 +194,7 @@ endif()
 
 
 if(BuildLibrary)
-  file(GLOB sources *.c src/*.c src/plugin/*.c)
+  file(GLOB sources brsh.c src/*.c src/plugin/*.c)
 
   add_library(brsh STATIC ${sources})
 
