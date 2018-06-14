@@ -106,7 +106,7 @@ void brsh_brush_destroy(BBrush* brush)
  }
 
 
- static inline float angle_from_points_p(WPoint a, WPoint b)
+ static inline float angle_from_points_wp(WPoint a, WPoint b)
  {
  return angle_from_points(a.x,a.y, b.x,b.y);
  }
@@ -164,7 +164,7 @@ static void _brush_tangents(BBrush* brush, WPoint a, WPoint b, double* lx,
 			    double* ly, double* rx, double* ry)
 {
 
-	double ang = deg2rad(angle_from_points_p(a, b));
+	double ang = deg2rad(angle_from_points_wp(a, b));
 	double ps  = a.pressure;
 
 	*lx = a.x - (ps * cos(ang) * brush->width);
@@ -255,7 +255,6 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	brush->needs_update = false;
 }
 
-
 void brsh_brush_update_old_fast(BBrush* brush)
 {
 
@@ -279,11 +278,10 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	if (l->num < 2)
 		return;
 	unsigned long long num = l->num;
-	
-	
+
 	WPoint first = l->data[0];
 	wsh_line_add_point(left, first);
-	
+
 	for (int i = 1; i < num; ++i)
 	{
 		WPoint p  = l->data[i];
@@ -293,7 +291,7 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		if (i > 1)
 		{
 			WPoint before = l->data[i - 1];
-			double d      = deg2rad(angle_from_points_p(p, before));
+			double d      = deg2rad(angle_from_points_wp(p, before));
 			ang += d;
 		}
 
@@ -315,16 +313,14 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	WLine* stroke = wsh_line_copy(left);
 	//	todo, replace this loop with the version that I've surely
 	//	already added to the class, yes
-	
-	
+
 	//wsh_line_concat(stroke, right, -1, -1);
-	
+
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
 		wsh_line_add_point(stroke, right->data[i]);
 	}
-	
-	
+
 	// drw_color(0,0,0,.5);
 
 	stroke->closed     = true;
