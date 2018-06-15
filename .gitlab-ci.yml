@@ -24,7 +24,7 @@ build:
 
   artifacts:
     paths:
-      - build/libwsh.a
+      - build/libbrsh.a
       - build/test/test_brsh
   # depending on your build setup it's most likely a good idea to cache outputs to reduce the build time
   cache:
