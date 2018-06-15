@@ -11,7 +11,7 @@ set(brsh_VERSION_PATCH 1)
 
 option(BuildDocumentation "BuildDocumentation" OFF)
 option(BuildDemo "BuildDemo" OFF)
-option(BuildTest "BuildTest" ONN)
+option(BuildTest "BuildTest" ON)
 option(BuildLibrary "Build the brush library for embedding or linking" ON)
 option(BuildPlugins "Build the sample plugins" ON)
 option(InstallPlugins "Install the test plugins" OFF)
@@ -26,6 +26,9 @@ else()
   set(CMAKE_BUILD_TYPE "debug")
 endif()
 
+if(${BuildTest})
+  add_subdirectory("test")
+endif()
 
 if(${have_r4_environment})
   message("Building within r4 lib structure.")
@@ -191,7 +194,7 @@ endif()
 
 
 if(BuildLibrary)
-  file(GLOB sources *.c src/*.c src/plugin/*.c)
+  file(GLOB sources brsh.c src/*.c src/plugin/*.c)
 
   add_library(brsh STATIC ${sources})
 

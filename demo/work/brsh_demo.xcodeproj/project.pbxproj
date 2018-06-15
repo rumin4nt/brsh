@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		57D73237206DC6AC00726D51 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D73236206DC6AC00726D51 /* main.c */; };
 		57D73241206DC73500726D51 /* libbrsh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D7323D206DC72900726D51 /* libbrsh.a */; };
+		57FB21BD20D31C11007E2E9D /* brsh_demo_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 57FB21BC20D31C11007E2E9D /* brsh_demo_common.c */; };
+		57FB21CB20D32372007E2E9D /* primitives.c in Sources */ = {isa = PBXBuildFile; fileRef = 57FB21C920D32372007E2E9D /* primitives.c */; };
+		57FB21D020D323C3007E2E9D /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21CF20D323C3007E2E9D /* libglfw3.a */; };
+		57FB21D420D324B3007E2E9D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21D220D324B2007E2E9D /* CoreFoundation.framework */; };
+		57FB21D620D324C4007E2E9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21D520D324C4007E2E9D /* CoreGraphics.framework */; };
+		57FB21D820D324C9007E2E9D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21D720D324C9007E2E9D /* IOKit.framework */; };
+		57FB21DA20D324D2007E2E9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21D920D324D2007E2E9D /* Foundation.framework */; };
+		57FB21DC20D324DD007E2E9D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21DB20D324DD007E2E9D /* Cocoa.framework */; };
+		57FB21DE20D324EA007E2E9D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57FB21DD20D324EA007E2E9D /* CoreVideo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +53,19 @@
 		57D7322B206DC68700726D51 /* brsh_demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = brsh_demo; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D73236206DC6AC00726D51 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		57D73238206DC72900726D51 /* brsh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = brsh.xcodeproj; path = ../../work/brsh.xcodeproj; sourceTree = "<group>"; };
+		57FB21BA20D31BB3007E2E9D /* demo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = demo.h; sourceTree = "<group>"; };
+		57FB21BB20D31C11007E2E9D /* brsh_demo_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brsh_demo_common.h; sourceTree = "<group>"; };
+		57FB21BC20D31C11007E2E9D /* brsh_demo_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = brsh_demo_common.c; sourceTree = "<group>"; };
+		57FB21C920D32372007E2E9D /* primitives.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = primitives.c; sourceTree = "<group>"; };
+		57FB21CA20D32372007E2E9D /* primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = primitives.h; sourceTree = "<group>"; };
+		57FB21CF20D323C3007E2E9D /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../contrib/platform/darwin/libglfw3.a; sourceTree = "<group>"; };
+		57FB21D120D324B2007E2E9D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		57FB21D220D324B2007E2E9D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		57FB21D520D324C4007E2E9D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		57FB21D720D324C9007E2E9D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		57FB21D920D324D2007E2E9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		57FB21DB20D324DD007E2E9D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		57FB21DD20D324EA007E2E9D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +73,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57FB21DE20D324EA007E2E9D /* CoreVideo.framework in Frameworks */,
+				57FB21DC20D324DD007E2E9D /* Cocoa.framework in Frameworks */,
+				57FB21DA20D324D2007E2E9D /* Foundation.framework in Frameworks */,
+				57FB21D820D324C9007E2E9D /* IOKit.framework in Frameworks */,
+				57FB21D620D324C4007E2E9D /* CoreGraphics.framework in Frameworks */,
+				57FB21D420D324B3007E2E9D /* CoreFoundation.framework in Frameworks */,
 				57D73241206DC73500726D51 /* libbrsh.a in Frameworks */,
+				57FB21D020D323C3007E2E9D /* libglfw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				57D73238206DC72900726D51 /* brsh.xcodeproj */,
+				57FB21CE20D323B7007E2E9D /* lib */,
 				57D73235206DC6AC00726D51 /* src */,
 				57D7322C206DC68700726D51 /* Products */,
 				57D73240206DC73500726D51 /* Frameworks */,
@@ -79,6 +109,11 @@
 		57D73235206DC6AC00726D51 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				57FB21CD20D323B2007E2E9D /* New Group */,
+				57FB21C820D32372007E2E9D /* support */,
+				57FB21BC20D31C11007E2E9D /* brsh_demo_common.c */,
+				57FB21BB20D31C11007E2E9D /* brsh_demo_common.h */,
+				57FB21BA20D31BB3007E2E9D /* demo.h */,
 				57D73236206DC6AC00726D51 /* main.c */,
 			);
 			name = src;
@@ -96,8 +131,40 @@
 		57D73240206DC73500726D51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57FB21DD20D324EA007E2E9D /* CoreVideo.framework */,
+				57FB21DB20D324DD007E2E9D /* Cocoa.framework */,
+				57FB21D920D324D2007E2E9D /* Foundation.framework */,
+				57FB21D720D324C9007E2E9D /* IOKit.framework */,
+				57FB21D520D324C4007E2E9D /* CoreGraphics.framework */,
+				57FB21D120D324B2007E2E9D /* CoreBluetooth.framework */,
+				57FB21D220D324B2007E2E9D /* CoreFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		57FB21C820D32372007E2E9D /* support */ = {
+			isa = PBXGroup;
+			children = (
+				57FB21C920D32372007E2E9D /* primitives.c */,
+				57FB21CA20D32372007E2E9D /* primitives.h */,
+			);
+			path = support;
+			sourceTree = "<group>";
+		};
+		57FB21CD20D323B2007E2E9D /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		57FB21CE20D323B7007E2E9D /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				57FB21CF20D323C3007E2E9D /* libglfw3.a */,
+			);
+			name = lib;
+			path = ../src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +241,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57FB21CB20D32372007E2E9D /* primitives.c in Sources */,
+				57FB21BD20D31C11007E2E9D /* brsh_demo_common.c in Sources */,
 				57D73237206DC6AC00726D51 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,7 +366,16 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W7MSG2FEA9;
-				HEADER_SEARCH_PATHS = ../../../;
+				HEADER_SEARCH_PATHS = (
+					../../../,
+					/usr/local/include,
+					../../contrib,
+					../contrib,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					../../contrib/platform/macos,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -307,7 +385,16 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W7MSG2FEA9;
-				HEADER_SEARCH_PATHS = ../../../;
+				HEADER_SEARCH_PATHS = (
+					../../../,
+					/usr/local/include,
+					../../contrib,
+					../contrib,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib,
+					../../contrib/platform/macos,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

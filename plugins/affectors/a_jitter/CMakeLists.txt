@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required(VERSION 3.0)
 
 project(a_jitter)
 set (a_jitter_VERSION_MAJOR 0)
