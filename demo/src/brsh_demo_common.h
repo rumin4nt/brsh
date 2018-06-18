@@ -16,6 +16,7 @@
 
 #include "demo.h"
 #include <stdbool.h>
+#include <wsh/wsh.h>
 
 #define NUM_DEMOS 1
 
@@ -37,5 +38,8 @@ extern bool wash_demo_has_pressure_sensitivity_of_any_kind;
 extern BrshDemo* current_demo;
 extern BrshDemo* demos[NUM_DEMOS];
 extern int  current_demo_index;
+
+int brsh_demo_load_wash(const char* path);
+extern WDocumentHnd document;
 
 #endif /* brsh_demo_common_h */

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57D5AEA020D850F4001736EF /* libwsh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D5AE9D20D850E1001736EF /* libwsh.a */; };
+		57D5AEA420D85374001736EF /* svg.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D5AEA320D85374001736EF /* svg.c */; };
+		57D5AEB120D86612001736EF /* libcairo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D5AEB020D86612001736EF /* libcairo.a */; };
+		57D5AEB520D866B8001736EF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D5AEB420D866B7001736EF /* libfreetype.a */; };
+		57D5AEB720D86764001736EF /* libfontconfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D5AEB620D86764001736EF /* libfontconfig.a */; };
+		57D5AEB920D8677F001736EF /* libpixman-1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D5AEB820D8677F001736EF /* libpixman-1.a */; };
+		57D5AEBB20D86908001736EF /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D5AEBA20D86908001736EF /* libpng16.a */; };
 		57D73237206DC6AC00726D51 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 57D73236206DC6AC00726D51 /* main.c */; };
 		57D73241206DC73500726D51 /* libbrsh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D7323D206DC72900726D51 /* libbrsh.a */; };
 		57FB21BD20D31C11007E2E9D /* brsh_demo_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 57FB21BC20D31C11007E2E9D /* brsh_demo_common.c */; };
@@ -21,6 +28,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		57D5AE9C20D850E1001736EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57D5AE9820D850E0001736EF /* wsh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D13617E71DFB772900FD1F83;
+			remoteInfo = wsh;
+		};
+		57D5AE9E20D850EF001736EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57D5AE9820D850E0001736EF /* wsh.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D13617E61DFB772900FD1F83;
+			remoteInfo = wsh;
+		};
 		57D7323C206DC72900726D51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57D73238206DC72900726D51 /* brsh.xcodeproj */;
@@ -50,6 +71,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		57D5AE9820D850E0001736EF /* wsh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = wsh.xcodeproj; path = ../../../wsh/work/wsh.xcodeproj; sourceTree = "<group>"; };
+		57D5AEA320D85374001736EF /* svg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = svg.c; sourceTree = "<group>"; };
+		57D5AEB020D86612001736EF /* libcairo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcairo.a; path = ../../../../../../../../usr/local/Cellar/cairo/1.14.12/lib/libcairo.a; sourceTree = "<group>"; };
+		57D5AEB420D866B7001736EF /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../../../../../usr/local/Cellar/freetype/2.9/lib/libfreetype.a; sourceTree = "<group>"; };
+		57D5AEB620D86764001736EF /* libfontconfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfontconfig.a; path = ../../../../../../../../usr/local/Cellar/fontconfig/2.12.6/lib/libfontconfig.a; sourceTree = "<group>"; };
+		57D5AEB820D8677F001736EF /* libpixman-1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libpixman-1.a"; path = "../../../../../../../../usr/local/Cellar/pixman/0.34.0_1/lib/libpixman-1.a"; sourceTree = "<group>"; };
+		57D5AEBA20D86908001736EF /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../../../../../../../../usr/local/Cellar/libpng/1.6.34/lib/libpng16.a; sourceTree = "<group>"; };
 		57D7322B206DC68700726D51 /* brsh_demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = brsh_demo; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D73236206DC6AC00726D51 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		57D73238206DC72900726D51 /* brsh.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = brsh.xcodeproj; path = ../../work/brsh.xcodeproj; sourceTree = "<group>"; };
@@ -73,11 +101,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57D5AEA020D850F4001736EF /* libwsh.a in Frameworks */,
 				57FB21DE20D324EA007E2E9D /* CoreVideo.framework in Frameworks */,
+				57D5AEB720D86764001736EF /* libfontconfig.a in Frameworks */,
+				57D5AEB920D8677F001736EF /* libpixman-1.a in Frameworks */,
 				57FB21DC20D324DD007E2E9D /* Cocoa.framework in Frameworks */,
 				57FB21DA20D324D2007E2E9D /* Foundation.framework in Frameworks */,
+				57D5AEBB20D86908001736EF /* libpng16.a in Frameworks */,
 				57FB21D820D324C9007E2E9D /* IOKit.framework in Frameworks */,
 				57FB21D620D324C4007E2E9D /* CoreGraphics.framework in Frameworks */,
+				57D5AEB520D866B8001736EF /* libfreetype.a in Frameworks */,
+				57D5AEB120D86612001736EF /* libcairo.a in Frameworks */,
 				57FB21D420D324B3007E2E9D /* CoreFoundation.framework in Frameworks */,
 				57D73241206DC73500726D51 /* libbrsh.a in Frameworks */,
 				57FB21D020D323C3007E2E9D /* libglfw3.a in Frameworks */,
@@ -87,9 +121,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57D5AE9920D850E0001736EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57D5AE9D20D850E1001736EF /* libwsh.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57D5AEA120D85315001736EF /* demos */ = {
+			isa = PBXGroup;
+			children = (
+				57D5AEA320D85374001736EF /* svg.c */,
+			);
+			path = demos;
+			sourceTree = "<group>";
+		};
 		57D73222206DC68700726D51 = {
 			isa = PBXGroup;
 			children = (
+				57D5AE9820D850E0001736EF /* wsh.xcodeproj */,
 				57D73238206DC72900726D51 /* brsh.xcodeproj */,
 				57FB21CE20D323B7007E2E9D /* lib */,
 				57D73235206DC6AC00726D51 /* src */,
@@ -110,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				57FB21CD20D323B2007E2E9D /* New Group */,
+				57D5AEA120D85315001736EF /* demos */,
 				57FB21C820D32372007E2E9D /* support */,
 				57FB21BC20D31C11007E2E9D /* brsh_demo_common.c */,
 				57FB21BB20D31C11007E2E9D /* brsh_demo_common.h */,
@@ -161,6 +213,11 @@
 		57FB21CE20D323B7007E2E9D /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				57D5AEB620D86764001736EF /* libfontconfig.a */,
+				57D5AEBA20D86908001736EF /* libpng16.a */,
+				57D5AEB420D866B7001736EF /* libfreetype.a */,
+				57D5AEB020D86612001736EF /* libcairo.a */,
+				57D5AEB820D8677F001736EF /* libpixman-1.a */,
 				57FB21CF20D323C3007E2E9D /* libglfw3.a */,
 			);
 			name = lib;
@@ -181,6 +238,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				57D5AE9F20D850EF001736EF /* PBXTargetDependency */,
 				57D7323F206DC73000726D51 /* PBXTargetDependency */,
 			);
 			name = brsh_demo;
@@ -194,7 +252,7 @@
 		57D73223206DC68700726D51 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = ruminant;
 				TargetAttributes = {
 					57D7322A206DC68700726D51 = {
@@ -218,6 +276,10 @@
 					ProductGroup = 57D73239206DC72900726D51 /* Products */;
 					ProjectRef = 57D73238206DC72900726D51 /* brsh.xcodeproj */;
 				},
+				{
+					ProductGroup = 57D5AE9920D850E0001736EF /* Products */;
+					ProjectRef = 57D5AE9820D850E0001736EF /* wsh.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -227,6 +289,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		57D5AE9D20D850E1001736EF /* libwsh.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libwsh.a;
+			remoteRef = 57D5AE9C20D850E1001736EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		57D7323D206DC72900726D51 /* libbrsh.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -243,6 +312,7 @@
 			files = (
 				57FB21CB20D32372007E2E9D /* primitives.c in Sources */,
 				57FB21BD20D31C11007E2E9D /* brsh_demo_common.c in Sources */,
+				57D5AEA420D85374001736EF /* svg.c in Sources */,
 				57D73237206DC6AC00726D51 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +320,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		57D5AE9F20D850EF001736EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = wsh;
+			targetProxy = 57D5AE9E20D850EF001736EF /* PBXContainerItemProxy */;
+		};
 		57D7323F206DC73000726D51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = brsh;
@@ -272,6 +347,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -279,6 +355,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -327,6 +404,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -334,6 +412,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -375,6 +454,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					../../contrib/platform/macos,
+					/usr/local/Cellar/cairo/1.14.12/lib,
+					/usr/local/Cellar/freetype/2.9/lib,
+					/usr/local/Cellar/fontconfig/2.12.6/lib,
+					/usr/local/Cellar/pixman/0.34.0_1/lib,
+					/usr/local/Cellar/libpng/1.6.34/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -394,6 +478,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
 					../../contrib/platform/macos,
+					/usr/local/Cellar/cairo/1.14.12/lib,
+					/usr/local/Cellar/freetype/2.9/lib,
+					/usr/local/Cellar/fontconfig/2.12.6/lib,
+					/usr/local/Cellar/pixman/0.34.0_1/lib,
+					/usr/local/Cellar/libpng/1.6.34/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
