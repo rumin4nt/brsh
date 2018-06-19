@@ -453,7 +453,12 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
+<<<<<<< HEAD
 					../../contrib/platform/macos,
+=======
+					../../../../contrib/platform/darwin,
+					../../contrib/platform/darwin,
+>>>>>>> 3d218d4405be4947e702616844731865eedca9ad
 					/usr/local/Cellar/cairo/1.14.12/lib,
 					/usr/local/Cellar/freetype/2.9/lib,
 					/usr/local/Cellar/fontconfig/2.12.6/lib,
@@ -477,7 +482,12 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
+<<<<<<< HEAD
 					../../contrib/platform/macos,
+=======
+					../../../../contrib/platform/darwin,
+					../../contrib/platform/darwin,
+>>>>>>> 3d218d4405be4947e702616844731865eedca9ad
 					/usr/local/Cellar/cairo/1.14.12/lib,
 					/usr/local/Cellar/freetype/2.9/lib,
 					/usr/local/Cellar/fontconfig/2.12.6/lib,

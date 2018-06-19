@@ -49,6 +49,11 @@ int brsh_demo_load_wash(const char* path)
 	
 	document.src = wsh_serial_document_unserialize(path);
 	
+
+	//todo: fix this somehow.
+	//hackily update the path here so our exports will work
+	document.src->meta.path = path;
+	
 	if (!document.src)
 	{
 		return 7;
