@@ -404,7 +404,6 @@ int main(int argc, const char* argv[])
 	drw_setup(window_w, window_h);
 	
 	brsh_demo_load_wash("/Users/vs/art/barn/src/art/wash/dump/drawing-ios-2018_06_13-20_09_42.wash");
-	switch_demo(0);
 	
 	brsh_plugins_set_search("/Users/vs/Library/Application Support/wash/plugins");
 	brsh_plugins_init();
@@ -420,6 +419,8 @@ int main(int argc, const char* argv[])
 	drw_color_clear(1, 1, 1, 1);
 	drw_color(0, 0, 0, 1);
 	
+	switch_demo(0);
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{

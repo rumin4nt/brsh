@@ -87,7 +87,7 @@ void update_brushes(void)
 		WLineHnd hnd;
 		hnd.src = line;
 		
-		BBrush* b = brsh_brush_create(hnd, 16);
+		BBrush* b = brsh_brush_create(hnd, 4);
 		simple_brush->update(b);
 		brushes[num_brushes-1] = b;
 	}
