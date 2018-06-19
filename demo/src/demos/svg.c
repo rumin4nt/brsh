@@ -15,6 +15,10 @@
 #define DEMO_NAME "svg_render"
 #define DEMO_NICENAME "SVG Render"
 
+#include <cairo/cairo-svg.h>
+#include <cairo/cairo.h>
+cairo_surface_t* surface = NULL;
+
 static void tablet_prox(int v)
 {
 	printf("got tablet prox? %d\n", v);
@@ -67,6 +71,12 @@ static void hack_point(WPoint* p)
 	p->y = canvas_h - p->y;
 }
 
+
+
+
+
+
+
 static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 {
 
@@ -83,9 +93,8 @@ static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 		cairo_line_to(cr, p.x, p.y);
 	}
 	
-	cairo_status_t status;
+	cairo_status_t status =	cairo_surface_status(surface);
 	
-	cairo_surface_status(&status);
 	printf("Cairo:%s\n", cairo_status_to_string(status));
 	cairo_close_path(cr);
 	
@@ -116,7 +125,6 @@ static void serialize_brushes(WDocument* doc)
 {
 	const char* path = "/tmp/brushes-test.svg";
 
-	cairo_surface_t* surface;
 	cairo_t*	 cr;
 	WDocumentMeta    meta = doc->meta;
 	canvas_w	      = doc->meta.canvas_width;
@@ -133,6 +141,12 @@ static void serialize_brushes(WDocument* doc)
 	{
 		BBrush* b = brushes[i];
 		WLine*  l = b->stroke;
+		
+		if ( !l )
+		{
+			printf("Something went wrong!\n");
+			continue;
+		}
 		w_serialize_line_svg(cr, l);
 	}
 	/*for ( int i = 0;i < obj->num_lines; i++ )
@@ -146,6 +160,8 @@ static void serialize_brushes(WDocument* doc)
 	cairo_destroy(cr);
 }
 
+
+
 static void init(void)
 {
 	printf("%s init!\n", DEMO_NICENAME);
@@ -158,7 +174,7 @@ static void init(void)
 
 	//const char* dat = wsh_serial_document_serialize(document.src);
 
-	wsh_serial_svg_document_serialize(document.src);
+	//wsh_serial_svg_document_serialize(document.src);
 
 	serialize_brushes(document.src);
 
