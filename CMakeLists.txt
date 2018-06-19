@@ -131,6 +131,8 @@ macro(build_plugin)
   IF({OperatingSystem} MATCHES "windows")
     SET(lib_extension dll)
   ENDIF()
+ link_directories(${CMAKE_BINARY_DIR}
+                   ${CMAKE_SOURCE_DIR}/../wsh/build)
 
   add_library(${project_name} SHARED ${sources})
 
@@ -146,7 +148,7 @@ macro(build_plugin)
 
   message(${CMAKE_CURRENT_SOURCE_DIR})
 
-  target_link_libraries(${project_name} m)
+  target_link_libraries(${project_name} m wsh)
 
   if(${OperatingSystem} MATCHES "macos")
     set(plugin_path $ENV{HOME}/Library/Application\ Support)
@@ -164,13 +166,15 @@ macro(build_plugin)
     set(plugin_dir ${plugin_path}/wash/plugins/${plugin_name})
     set(lib_dest ${plugin_dir}/lib${project_name}.${lib_extension})
 
-    file(MAKE_DIRECTORY ${plugin_dir})
-
+    #file(MAKE_DIRECTORY ${plugin_dir})
+    set(full_plugin_install_path )
     add_custom_command(
       TARGET ${project_name} POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy
               ${CMAKE_CURRENT_BINARY_DIR}/lib${project_name}.${lib_extension}
               ${lib_dest})
+
+    message("Installing plugin to ${lib_dest}")
   else()
     message("Not installing plugin.")
   endif()

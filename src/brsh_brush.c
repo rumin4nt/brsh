@@ -334,7 +334,7 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	//	IMPORTANT
 	wsh_line_ops_smooth(stroke, 4);
 
-	brush->tess = r_gpc_tess_create(stroke);
+	//brush->tess = r_gpc_tess_create(stroke);
 	wsh_line_ops_smooth(stroke, 8);
 
 	// drw_poly(stroke);

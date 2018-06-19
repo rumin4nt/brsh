@@ -24,7 +24,9 @@
 static const char* search_dir = NULL;
 
 //BrshPlugin* brsh_plugin_load(const char* path, const char* name);
-// BrshPlugin** plugins = NULL;
+BrshPlugin** plugins = NULL;
+int plugin_num = 0;
+
 void brsh_plugins_set_search(const char* path)
 {
 	printf("setting search dir to : %s\n", path);
@@ -64,7 +66,14 @@ void brsh_plugins_unload(void)
 void brsh_plugins_init(void)
 {
 #ifndef BPLATFORM_IOS
-	printf("Loading brushes.\n");
+	
+	
+	if ( !search_dir )
+	{
+		printf("Can't query brushes, no search_dir specified!\n");
+		return;
+	}
+	printf("Loading brushes in dir: [%s].\n", search_dir);
 	tinydir_dir dir;
 	tinydir_open(&dir, search_dir);
 
@@ -84,7 +93,20 @@ void brsh_plugins_init(void)
 
 				sprintf(buf, "%s%s%s", search_dir, B_PATH_SEP, file.name);
 
-				brsh_plugin_load(buf, trunk);
+				BrshPlugin* plug = brsh_plugin_load(buf, trunk);
+				if ( plug )
+				{
+					plugin_num++;
+					if ( plugins == NULL )
+					{
+						plugins = calloc(1, sizeof(BrshPlugin));
+					}else{
+						plugins = realloc(plugins, sizeof(BrshPlugin) * plugin_num);
+						
+					}
+				}
+				plugins[plugin_num-1] = plug;
+				
 			}
 		}
 		/*
@@ -113,9 +135,16 @@ void brsh_plugins_update(void)
 {
 }
 
-int brsh_plugins_query(const char* identifier)
+BrshPlugin* brsh_plugins_query(const char* identifier)
 {
-	return -1;
+	
+	for(int i =0;i < plugin_num; i++ )
+	{
+		BrshPlugin* p = plugins[i];
+		if ( 0 == strcmp(identifier, p->identifier))
+			return p;
+	}
+	return NULL;
 }
 
 BrshPlugin* brsh_plugins_instance(const char* identifier)

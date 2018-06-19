@@ -18,8 +18,10 @@
 #include <stdbool.h>
 #include <wsh/wsh.h>
 
+#include <brsh/brsh.h>
 #define NUM_DEMOS 1
 
+extern BrshPlugin* simple_brush;
 extern int window_w;
 extern int window_h;
 extern int frame_w ;
@@ -34,12 +36,17 @@ extern int mouse_present;
 extern double display_radius ;
 extern bool   faking_it      ;
 
+extern BBrush** brushes;
+extern int num_brushes;
 extern bool wash_demo_has_pressure_sensitivity_of_any_kind;
 extern BrshDemo* current_demo;
 extern BrshDemo* demos[NUM_DEMOS];
 extern int  current_demo_index;
 
 int brsh_demo_load_wash(const char* path);
+
+void update_brushes(void);
+
 extern WDocumentHnd document;
 
 #endif /* brsh_demo_common_h */

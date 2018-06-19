@@ -306,8 +306,21 @@ static void draw(void)
 		return;
 	
 	
+	if ( simple_brush )
+	{
+		
+	}
+	
+	drw_color(0,0,0,.25);
 	drw_wobject(fr);
 	
+	int n = num_brushes;
+	for ( int i = 0;i < n; i++)
+	{
+		BBrush* b = brushes[i];
+		drw_wline(b->stroke);
+		
+	}
 	
 }
 
@@ -393,6 +406,17 @@ int main(int argc, const char* argv[])
 	brsh_demo_load_wash("/Users/vs/art/barn/src/art/wash/dump/drawing-ios-2018_06_13-20_09_42.wash");
 	switch_demo(0);
 	
+	brsh_plugins_set_search("/Users/vs/Library/Application Support/wash/plugins");
+	brsh_plugins_init();
+	
+	
+	simple_brush = brsh_plugins_query("space.ruminant.b_simple");
+	if ( simple_brush )
+	{
+		printf("Huzzah!\n");
+	}
+	
+	update_brushes();
 	drw_color_clear(1, 1, 1, 1);
 	drw_color(0, 0, 0, 1);
 	

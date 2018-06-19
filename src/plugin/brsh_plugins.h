@@ -18,7 +18,7 @@ void brsh_plugins_set_search(const char* path);
 void brsh_plugins_init(void);
 void brsh_plugins_deinit(void);
 
-int brsh_plugins_query(const char* identifier);
+BrshPlugin* brsh_plugins_query(const char* identifier);
 
 void	brsh_plugins_update(void);
 BrshPlugin* brsh_plugins_instance(const char* identifier);
