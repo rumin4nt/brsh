@@ -16,6 +16,8 @@ extern BrshDemo hello;
 #define WIDTH 512
 #define HEIGHT 512
 
+//#include "demos/svg.c"
+
 GLFWwindow*   window	 = NULL;
 static void switch_demo(int i);
 
@@ -189,6 +191,8 @@ static void drop_callback(GLFWwindow* window, int num, const char** paths)
 		return;
 	}
 	
+	
+	
 	//wsh_demo_load_document(first);
 	if (!current_demo)
 		return;
@@ -287,6 +291,24 @@ static void draw(void)
 	drw_clear();
 	drw_color(0, 0, 0, 1);
 	
+	
+	if ( !document.src )
+	{
+		return;
+	}
+	
+	WSequence* seq = document.src->sequence.src;
+	
+	WObject* fr = seq->frames[0];
+	
+	
+	if ( !fr )
+		return;
+	
+	
+	drw_wobject(fr);
+	
+	
 }
 
 static void switch_demo(int i)
@@ -368,6 +390,7 @@ int main(int argc, const char* argv[])
 	
 	drw_setup(window_w, window_h);
 	
+	brsh_demo_load_wash("/Users/vs/art/barn/src/art/wash/dump/drawing-ios-2018_06_13-20_09_42.wash");
 	switch_demo(0);
 	
 	drw_color_clear(1, 1, 1, 1);
