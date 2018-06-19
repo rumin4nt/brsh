@@ -130,11 +130,34 @@ void brsh_plugins_deinit(void)
 //void brsh_plugins_update(BrshPlugin* plug, WLine* line)
 ////{
 //}
+#include <brsh/brsh.h>
+
 
 void brsh_plugins_update(void)
 {
 }
 
+BrshPlugin** brsh_plugins_get(int* num)
+{
+	*num = plugin_num;
+	return plugins;
+}
+/*
+void 	brsh_plugins_enumerate(char*** ss, int* num)
+{
+	printf("Enumerating brushes...\n");
+	*num = plugin_num;
+	*ss = calloc(BRSH_IDENTIFIER_MAX_LENGTH * plugin_num, sizeof(char));
+
+	for ( int i = 0; i < plugin_num;i ++ )
+	{
+		//ss[i] = calloc(BRSH_IDENTIFIER_MAX_LENGTH, sizeof(char)); // = calloc(BRSH_IDENTIFIER_MAX_LENGTH * plugin_num, sizeof(char));
+		
+		*ss[i] = strdup(plugins[i]->identifier);
+		printf("%s\n", *ss[i]);
+	}
+}
+*/
 BrshPlugin* brsh_plugins_query(const char* identifier)
 {
 	

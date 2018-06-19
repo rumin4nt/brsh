@@ -80,7 +80,7 @@ static void hack_point(WPoint* p)
 static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 {
 
-	cairo_new_path (cr);
+	cairo_new_path(cr);
 	for (int j = 1; j < line->num; j++)
 	{
 		WPoint prev = line->data[j - 1];
@@ -94,15 +94,23 @@ static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 	}
 	
 	cairo_status_t status =	cairo_surface_status(surface);
-	
 	printf("Cairo:%s\n", cairo_status_to_string(status));
+	
 	cairo_close_path(cr);
+	
+	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_EVEN_ODD);
+	status =	cairo_surface_status(surface);
+	printf("Cairo:%s\n", cairo_status_to_string(status));
 	
 	cairo_set_source_rgb (cr, 0.5, 0.5, 1);
 	cairo_fill_preserve (cr);
 	cairo_set_source_rgba (cr, 0.5, 0, 0, 0.5);
 	cairo_set_line_width (cr, 10.0);
-	//cairo_stroke (cr);
+	
+	status =	cairo_surface_status(surface);
+	printf("Cairo:%s\n", cairo_status_to_string(status));
+	
+	cairo_stroke (cr);
 	
 	
 	

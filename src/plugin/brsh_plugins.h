@@ -22,6 +22,9 @@ BrshPlugin* brsh_plugins_query(const char* identifier);
 
 void	brsh_plugins_update(void);
 BrshPlugin* brsh_plugins_instance(const char* identifier);
+//void 	brsh_plugins_enumerate(char***, int* num);
+
+BrshPlugin** brsh_plugins_get(int* num);
 
 //void brsh_plugins_update(BrshPlugin* plug, WLine* line);
 
