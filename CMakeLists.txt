@@ -14,7 +14,7 @@ option(BuildDemo "BuildDemo" OFF)
 option(BuildTest "BuildTest" ON)
 option(BuildLibrary "Build the brush library for embedding or linking" ON)
 option(BuildPlugins "Build the sample plugins" ON)
-option(InstallPlugins "Install the test plugins" OFF)
+option(InstallPlugins "Install the test plugins" ON)
 
 if(CMAKE_BUILD_TYPE)
   if (${CMAKE_BUILD_TYPE} STREQUAL "release")
