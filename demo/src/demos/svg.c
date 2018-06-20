@@ -15,6 +15,10 @@
 #define DEMO_NAME "svg_render"
 #define DEMO_NICENAME "SVG Render"
 
+#include <cairo/cairo-svg.h>
+#include <cairo/cairo.h>
+cairo_surface_t* surface = NULL;
+
 static void tablet_prox(int v)
 {
 	printf("got tablet prox? %d\n", v);
@@ -67,10 +71,16 @@ static void hack_point(WPoint* p)
 	p->y = canvas_h - p->y;
 }
 
+
+
+
+
+
+
 static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 {
 
-	cairo_new_path (cr);
+	cairo_new_path(cr);
 	for (int j = 1; j < line->num; j++)
 	{
 		WPoint prev = line->data[j - 1];
@@ -82,25 +92,28 @@ static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 		cairo_move_to(cr, prev.x, prev.y);
 		cairo_line_to(cr, p.x, p.y);
 	}
-	
-	cairo_status_t status;
-	
-	cairo_surface_status(&status);
+
+	cairo_status_t status = cairo_surface_status(surface);
+
+	WPoint last = line->data[line->num - 1];
+	hack_point(&last);
+	cairo_move_to(cr, last.x, last.y);
 	printf("Cairo:%s\n", cairo_status_to_string(status));
 	cairo_close_path(cr);
-	
-	cairo_set_source_rgb (cr, 0.5, 0.5, 1);
-	cairo_fill_preserve (cr);
-	cairo_set_source_rgba (cr, 0.5, 0, 0, 0.5);
-	cairo_set_line_width (cr, 10.0);
-	//cairo_stroke (cr);
-	
-	
-	
+
+	cairo_set_source_rgb(cr, 0.5, 0.5, 1);
+	cairo_fill_preserve(cr);
+	cairo_set_source_rgba(cr, 0.5, 0, 0, 0.5);
+	cairo_set_line_width(cr, 10.0);
+	cairo_stroke_preserve(cr);
+
+	cairo_set_source_rgb(cr, 0.5, 0.5, 1);
+	cairo_fill(cr);
+
 	/*
 	//cairo_set_source_rgba(cr, 0,1,0,.5);
 	cairo_stroke(cr);
-	
+
 	cairo_set_source_rgb(cr, 0, 0, 0);
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_WINDING);
 	cairo_fill(cr);
@@ -109,18 +122,16 @@ static void w_serialize_line_svg(cairo_t* cr, WLine* line)
 	cairo_set_fill_rule(cr, CAIRO_FILL_RULE_WINDING);
 	cairo_close_path(cr);
 */
-	
 }
 
 static void serialize_brushes(WDocument* doc)
 {
 	const char* path = "/tmp/brushes-test.svg";
 
-	cairo_surface_t* surface;
-	cairo_t*	 cr;
-	WDocumentMeta    meta = doc->meta;
-	canvas_w	      = doc->meta.canvas_width;
-	canvas_h	      = doc->meta.canvas_height;
+	cairo_t*      cr;
+	WDocumentMeta meta = doc->meta;
+	canvas_w	   = doc->meta.canvas_width;
+	canvas_h	   = doc->meta.canvas_height;
 
 	surface = cairo_svg_surface_create(path, canvas_w, canvas_h);
 	cr      = cairo_create(surface);
@@ -133,6 +144,12 @@ static void serialize_brushes(WDocument* doc)
 	{
 		BBrush* b = brushes[i];
 		WLine*  l = b->stroke;
+
+		if (!l)
+		{
+			printf("Something went wrong!\n");
+			continue;
+		}
 		w_serialize_line_svg(cr, l);
 	}
 	/*for ( int i = 0;i < obj->num_lines; i++ )
@@ -158,7 +175,7 @@ static void init(void)
 
 	//const char* dat = wsh_serial_document_serialize(document.src);
 
-	wsh_serial_svg_document_serialize(document.src);
+	//wsh_serial_svg_document_serialize(document.src);
 
 	serialize_brushes(document.src);
 
