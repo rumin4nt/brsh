@@ -131,6 +131,14 @@ void brsh_brush_update_custom(BBrush* brush, brush_update_func func)
 
 void brsh_brush_update(BBrush* brush, brush_update_func func)
 {
+	if ( !brush )
+	{
+		printf("Passed a bad value to %s", __FUNCTION__);
+		return;
+	}
+	//if ( brush->hnd.src )
+		
+		
 	//	if we pass a function directly to this function, can assume we are overriding.
 	if (func)
 	{
@@ -258,12 +266,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 void brsh_brush_update_old_fast(BBrush* brush)
 {
 
-	if (!brush)
-	{
-		printf("oops");
-		//		oops
-		return;
-	}
+
 
 	// printf("Updating brush!\n");
 
@@ -272,28 +275,22 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	WLine* right = wsh_line_create();
 
 	WLine* l = brush->hnd.src;
-	if (!l)
-		return;
 
-	if (l->num < 2)
-		return;
 	unsigned long long num = l->num;
 
 	WPoint first = l->data[0];
 	wsh_line_add_point(left, first);
 
-	for (int i = 1; i < num; ++i)
+	for (int i = 1; i < num; i++)
 	{
 		WPoint p  = l->data[i];
-		double ps = p.pressure;
+		WPoint pr = l->data[i-1];
+		
+		double ps = (pr.pressure + p.pressure) / 2;
 
-		double ang = 0;
-		if (i > 1)
-		{
-			WPoint before = l->data[i - 1];
-			double d      = deg2rad(angle_from_points_wp(p, before));
-			ang += d;
-		}
+		
+		double ang = deg2rad(angle_from_points_wp(pr, p));
+		
 
 		WPoint p1, p2;
 
@@ -311,18 +308,14 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	}
 
 	WLine* stroke = wsh_line_copy(left);
-	//	todo, replace this loop with the version that I've surely
-	//	already added to the class, yes
-
-	//wsh_line_concat(stroke, right, -1, -1);
 
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
 		wsh_line_add_point(stroke, right->data[i]);
 	}
 
-	// drw_color(0,0,0,.5);
 
+	
 	stroke->closed     = true;
 	stroke->has_fill   = true;
 	stroke->has_stroke = true;
