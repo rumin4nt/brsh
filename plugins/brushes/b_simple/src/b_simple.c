@@ -7,11 +7,11 @@
 //
 
 #include "b_simple.h"
+#include <wsh/wsh.h>
 
 #include <brsh/src/plugin/brsh_plugin.h>
-#include <stdio.h>
-
 #include <math.h>
+#include <stdio.h>
 
 static inline double angle_from_points(double x1, double y1, double x2, double y2)
 {
