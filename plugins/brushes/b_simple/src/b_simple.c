@@ -7,7 +7,7 @@
 //
 
 #include "b_simple.h"
-#include <wsh/wsh.h>
+#include <wsh/src/geo/wsh_line.h>
 
 #include <brsh/src/plugin/brsh_plugin.h>
 #include <math.h>
@@ -70,7 +70,8 @@ static int update(void* plugdata)
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
 
-	WLine* l = brush->hnd.src;
+	WLineHnd* hnd = brush->hnd;
+	WLine*    l   = hnd->src;
 	if (!l)
 		return 2;
 
