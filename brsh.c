@@ -6,8 +6,8 @@
 
 int brsh_check_version_match(const char* header_generated_version)
 {
-	char* v = brsh_get_version_string();
-	int match = (0 == strcmp(v, header_generated_version));
+	char* v     = brsh_get_version_string();
+	int   match = (0 == strcmp(v, header_generated_version));
 	free(v);
 	return match;
 }
@@ -15,7 +15,7 @@ int brsh_check_version_match(const char* header_generated_version)
 char* brsh_get_version_string(void)
 {
 	char* buf = calloc(256, sizeof(char));
-	sprintf(buf, "%d_%d_%d", BRSH_VERSION_MAJOR, BRSH_VERSION_MINOR,
+	sprintf(buf, "%d.%d.%d", BRSH_VERSION_MAJOR, BRSH_VERSION_MINOR,
 		BRSH_VERSION_PATCH);
 	return buf;
 }
