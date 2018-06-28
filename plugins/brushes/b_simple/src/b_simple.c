@@ -70,7 +70,7 @@ static int update(void* plugdata)
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
 
-	WLineHnd* hnd = brush->hnd;
+	WLineHnd* hnd = &brush->hnd;
 	WLine*    l   = hnd->src;
 	if (!l)
 		return 2;
