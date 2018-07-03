@@ -267,54 +267,70 @@ void brsh_brush_update_old_fast(BBrush* brush)
 {
 
 
-
+	if (!brush)
+	{
+		printf("oops");
+		//		oops
+		return;
+	}
+	
 	// printf("Updating brush!\n");
-
+	
 	//	todo make this not horrible
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
-
+	
 	WLine* l = brush->hnd.src;
-
+	if (!l)
+		return;
+	
+	if (l->num < 2)
+		return;
 	unsigned long long num = l->num;
-
+	
 	WPoint first = l->data[0];
 	wsh_line_add_point(left, first);
-
-	for (int i = 1; i < num; i++)
+	
+	for (int i = 1; i < num; ++i)
 	{
 		WPoint p  = l->data[i];
-		WPoint pr = l->data[i-1];
+		double ps = p.pressure;
 		
-		double ps = (pr.pressure + p.pressure) / 2;
-
+		double ang = 0;
+		if (i > 1)
+		{
+			WPoint before = l->data[i - 1];
+			double d      = deg2rad(angle_from_points_wp_deg(p, before));
+			ang += d;
+		}
 		
-		double ang = deg2rad(angle_from_points_wp(pr, p));
-		
-
 		WPoint p1, p2;
-
+		
 		wsh_point_zero(&p1);
 		wsh_point_zero(&p2);
-
+		
 		p1.x = p.x - (ps * cos(ang) * brush->width);
 		p1.y = p.y - (ps * sin(ang) * brush->width);
-
+		
 		p2.x = p.x + (ps * cos(ang) * brush->width);
 		p2.y = p.y + (ps * sin(ang) * brush->width);
-
+		
 		wsh_line_add_point(left, p1);
 		wsh_line_add_point(right, p2);
 	}
-
+	
 	WLine* stroke = wsh_line_copy(left);
-
+	//	todo, replace this loop with the version that I've surely
+	//	already added to the class, yes
+	
+	//wsh_line_concat(stroke, right, -1, -1);
+	
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
 		wsh_line_add_point(stroke, right->data[i]);
 	}
-
-
+	
+	// drw_color(0,0,0,.5);
 	
 	stroke->closed     = true;
 	stroke->has_fill   = true;
@@ -323,23 +339,23 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	stroke->fill.g     = 0;
 	stroke->fill.b     = 1;
 	stroke->fill.a     = .5;
-
+	
 	//	IMPORTANT
 	wsh_line_ops_smooth(stroke, 4);
-
-	brush->tess = r_gpc_tess_create(stroke);
+	
+	brush->tess = r_gpc_tess_create_wline(stroke);
 	wsh_line_ops_smooth(stroke, 8);
-
+	
 	// drw_poly(stroke);
-
+	
 	wsh_line_destroy(left);
 	wsh_line_destroy(right);
-
+	
 	if (brush->stroke)
 	{
 		wsh_line_destroy(brush->stroke);
 	}
-	
 	brush->stroke = stroke;
+	
 	brush->needs_update = false;
 }
