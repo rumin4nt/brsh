@@ -288,8 +288,8 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		return;
 	unsigned long long num = l->num;
 	
-	WPoint first = l->data[0];
-	wsh_line_add_point(left, first);
+	//WPoint first = l->data[0];
+	//wsh_line_add_point(left, first);
 	
 	for (int i = 1; i < num; ++i)
 	{
