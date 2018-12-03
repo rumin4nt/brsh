@@ -21,6 +21,8 @@
 #define BRSH_VERSION_MINOR 0
 #define BRSH_VERSION_PATCH 1
 
+#define BRSH_IDENTIFIER_MAX_LENGTH 256
+
 char* brsh_get_version_string(void);
 int   brsh_check_version_match(const char* header_generated_version);
 

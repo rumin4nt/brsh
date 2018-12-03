@@ -8,9 +8,10 @@
 
 #include "b_dynamic_python.h"
 
+#include <stdio.h>
 
-#include <stdlib.h>
 #include <brsh/brsh_config.h>
+#include <stdlib.h>
 #include <string.h>
 
 static int init(void* plugdata)

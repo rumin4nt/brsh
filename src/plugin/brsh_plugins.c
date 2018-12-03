@@ -9,6 +9,7 @@
 #include "brsh_plugins.h"
 
 #include "../../brsh_config.h"
+#include "brsh_plugin.h"
 
 #include "include/tinydir.h"
 #include <dlfcn.h>
@@ -16,14 +17,16 @@
 #include <wildcardcmp/wildcardcmp.h>
 
 #include <stdio.h>
-#include <vector/vector.h>
 
-static struct vector_t plugins;
+//#include <vector/vector.h>
+//static struct vector_t plugins;
 
 static const char* search_dir = NULL;
 
 //BrshPlugin* brsh_plugin_load(const char* path, const char* name);
-// BrshPlugin** plugins = NULL;
+BrshPlugin** plugins = NULL;
+int plugin_num = 0;
+
 void brsh_plugins_set_search(const char* path)
 {
 	printf("setting search dir to : %s\n", path);
@@ -63,7 +66,14 @@ void brsh_plugins_unload(void)
 void brsh_plugins_init(void)
 {
 #ifndef BPLATFORM_IOS
-	printf("Loading brushes.\n");
+	
+	
+	if ( !search_dir )
+	{
+		printf("Can't query brushes, no search_dir specified!\n");
+		return;
+	}
+	printf("Loading brushes in dir: [%s].\n", search_dir);
 	tinydir_dir dir;
 	tinydir_open(&dir, search_dir);
 
@@ -83,7 +93,20 @@ void brsh_plugins_init(void)
 
 				sprintf(buf, "%s%s%s", search_dir, B_PATH_SEP, file.name);
 
-				brsh_plugin_load(buf, trunk);
+				BrshPlugin* plug = brsh_plugin_load(buf, trunk);
+				if ( plug )
+				{
+					plugin_num++;
+					if ( plugins == NULL )
+					{
+						plugins = calloc(1, sizeof(BrshPlugin));
+					}else{
+						plugins = realloc(plugins, sizeof(BrshPlugin) * plugin_num);
+						
+					}
+				}
+				plugins[plugin_num-1] = plug;
+				
 			}
 		}
 		/*
@@ -107,14 +130,44 @@ void brsh_plugins_deinit(void)
 //void brsh_plugins_update(BrshPlugin* plug, WLine* line)
 ////{
 //}
+#include <brsh/brsh.h>
+
 
 void brsh_plugins_update(void)
 {
 }
 
-int brsh_plugins_query(const char* identifier)
+BrshPlugin** brsh_plugins_get(int* num)
 {
-	return -1;
+	*num = plugin_num;
+	return plugins;
+}
+/*
+void 	brsh_plugins_enumerate(char*** ss, int* num)
+{
+	printf("Enumerating brushes...\n");
+	*num = plugin_num;
+	*ss = calloc(BRSH_IDENTIFIER_MAX_LENGTH * plugin_num, sizeof(char));
+
+	for ( int i = 0; i < plugin_num;i ++ )
+	{
+		//ss[i] = calloc(BRSH_IDENTIFIER_MAX_LENGTH, sizeof(char)); // = calloc(BRSH_IDENTIFIER_MAX_LENGTH * plugin_num, sizeof(char));
+		
+		*ss[i] = strdup(plugins[i]->identifier);
+		printf("%s\n", *ss[i]);
+	}
+}
+*/
+BrshPlugin* brsh_plugins_query(const char* identifier)
+{
+	
+	for(int i =0;i < plugin_num; i++ )
+	{
+		BrshPlugin* p = plugins[i];
+		if ( 0 == strcmp(identifier, p->identifier))
+			return p;
+	}
+	return NULL;
 }
 
 BrshPlugin* brsh_plugins_instance(const char* identifier)

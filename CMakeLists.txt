@@ -11,10 +11,10 @@ set(brsh_VERSION_PATCH 1)
 
 option(BuildDocumentation "BuildDocumentation" OFF)
 option(BuildDemo "BuildDemo" OFF)
-option(BuildTest "BuildTest" OFF)
-option(BuildLibrary "Build the brush library for embedding or linking" OFF)
+option(BuildTest "BuildTest" ON)
+option(BuildLibrary "Build the brush library for embedding or linking" ON)
 option(BuildPlugins "Build the sample plugins" ON)
-option(InstallPlugins "Install the test plugins" OFF)
+option(InstallPlugins "Install the test plugins" ON)
 
 if(CMAKE_BUILD_TYPE)
   if (${CMAKE_BUILD_TYPE} STREQUAL "release")
@@ -26,6 +26,9 @@ else()
   set(CMAKE_BUILD_TYPE "debug")
 endif()
 
+if(${BuildTest})
+  add_subdirectory("test")
+endif()
 
 if(${have_r4_environment})
   message("Building within r4 lib structure.")
@@ -128,21 +131,24 @@ macro(build_plugin)
   IF({OperatingSystem} MATCHES "windows")
     SET(lib_extension dll)
   ENDIF()
+ link_directories(${CMAKE_BINARY_DIR}
+                   ${CMAKE_SOURCE_DIR}/../wsh/build)
 
   add_library(${project_name} SHARED ${sources})
 
   target_include_directories(
-    	${project_name} PUBLIC
-    	${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include
+    ${project_name} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib/include
   	${CMAKE_CURRENT_SOURCE_DIR}/../../../../contrib
- 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../..
- 	${CMAKE_CURRENT_SOURCE_DIR}/../../../../../..
- 	${CMAKE_SOURCE_DIR}/..
+ 	  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../..
+ 	  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../..
+    ${CMAKE_SOURCE_DIR}/..
+    ${CMAKE_SOURCE_DIR}/libs
  	)
 
   message(${CMAKE_CURRENT_SOURCE_DIR})
 
-  target_link_libraries(${project_name} m)
+  target_link_libraries(${project_name} m wsh)
 
   if(${OperatingSystem} MATCHES "macos")
     set(plugin_path $ENV{HOME}/Library/Application\ Support)
@@ -160,15 +166,17 @@ macro(build_plugin)
     set(plugin_dir ${plugin_path}/wash/plugins/${plugin_name})
     set(lib_dest ${plugin_dir}/lib${project_name}.${lib_extension})
 
-    file(MAKE_DIRECTORY ${plugin_dir})
-
+    #file(MAKE_DIRECTORY ${plugin_dir})
+    set(full_plugin_install_path )
     add_custom_command(
       TARGET ${project_name} POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy
               ${CMAKE_CURRENT_BINARY_DIR}/lib${project_name}.${lib_extension}
               ${lib_dest})
+
+    message("Installing plugin to ${lib_dest}")
   else()
-    message(Not installing plugin.)
+    message("Not installing plugin.")
   endif()
 endmacro()
 
@@ -190,7 +198,7 @@ endif()
 
 
 if(BuildLibrary)
-  file(GLOB sources *.c src/*.c src/plugin/*.c)
+  file(GLOB sources brsh.c src/*.c src/plugin/*.c)
 
   add_library(brsh STATIC ${sources})
 

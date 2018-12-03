@@ -2,13 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<<<<<<< Updated upstream:work/brsh.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+	<key>IDEDidComputeMac32BitWarning</key>
+	<true/>
+=======
 	<key>SchemeUserState</key>
 	<dict>
 		<key>brsh_demo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 	</dict>
+>>>>>>> Stashed changes:demo/work/brsh_demo.xcodeproj/xcuserdata/vs.xcuserdatad/xcschemes/xcschememanagement.plist
 </dict>
 </plist>

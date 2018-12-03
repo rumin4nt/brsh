@@ -9,6 +9,7 @@
 #include "b_dynamic_javascript.h"
 
 #include <brsh/src/brsh_brush.h>
+#include <stdio.h>
 
 static int init(void* plugdata)
 {
