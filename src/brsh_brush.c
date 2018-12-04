@@ -35,11 +35,12 @@ void brsh_brush_update_custom(BBrush* brush, brush_update_func cb);
 void brsh_brush_update_new_slow(BBrush* brush);
 void brsh_brush_update_old_fast(BBrush* brush);
 
-BBrush* brsh_brush_create(struct WLineHnd ref, double width)
+BBrush* brsh_brush_create(void* data, double width)
 {
+	WLineHnd* hnd = (WLineHnd*)data;
 	//printf("Creating brush with width %f\n", width);
 	BBrush* brush       = calloc(1, sizeof(BBrush));
-	brush->hnd	  = ref;
+	brush->hnd	  = hnd;
 	brush->needs_update = true;
 	brush->data	 = NULL;
 	brush->data	 = 0;
@@ -50,8 +51,10 @@ BBrush* brsh_brush_create(struct WLineHnd ref, double width)
 	return brush;
 }
 
-BBrush* brsh_brush_copy(struct BBrush* old, struct WLineHnd hnd)
+struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd)
 {
+	/*WLineHnd* old = (WLineHnd*)wlinehnddata_old;
+	WLineHnd* hnd = (WLineHnd*)wlinehnd;
 
 	if (old == NULL)
 	{
@@ -63,7 +66,7 @@ BBrush* brsh_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 	if (!old)
 		return NULL;
 
-	BBrush* brush       = brsh_brush_create(hnd, old->width);
+	BBrush* brush       = brsh_brush_create(hnd, old->src->width);
 	brush->needs_update = old->needs_update;
 
 	if (old->stroke)
@@ -85,12 +88,14 @@ BBrush* brsh_brush_copy(struct BBrush* old, struct WLineHnd hnd)
 	}
 #endif
 	return brush;
+	*/
+	return NULL;
 }
 
 void brsh_brush_destroy(BBrush* brush)
 {
 	// free(brush->hnd);
-	brush->hnd.src = NULL;
+	brush->hnd->src = NULL;
 	free(brush->data);
 	// printf("Destroying a brush for line %p\n", brush->hnd);
 	// free(brush);
@@ -206,7 +211,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	double px, py;
 	double x, y;
 	px = py = x = y = nx = ny = 0;
-	WLine* src		  = brush->hnd.src;
+	WLine* src		  = brush->hnd->src;
 
 	WLine* cpy = wsh_line_copy(src);
 	wsh_line_ops_smooth(cpy, 4);
@@ -288,7 +293,7 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
 
-	WLine* l = brush->hnd.src;
+	WLine* l = brush->hnd->src;
 	if (!l)
 		return;
 

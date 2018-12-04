@@ -20,7 +20,6 @@
 #include <stdbool.h>
 #include <wsh/src/geo/wsh_line.h>
 
-
 enum
 {
 	B_BRUSH_TYPE_NONE,
@@ -32,16 +31,16 @@ enum
 typedef struct BBrush
 {
 
-	int		brush_type;
-	bool		needs_update;
-	double		width;
-	struct WLineHnd hnd;
-	struct WLine*   stroke;
-	double*		data;
-	void*		extra;
-	void*		tess;
-	unsigned long   num;
-	void*		update_func;
+	int		 brush_type;
+	bool		 needs_update;
+	double		 width;
+	struct WLineHnd* hnd;
+	struct WLine*    stroke;
+	double*		 data;
+	void*		 extra;
+	void*		 tess;
+	unsigned long    num;
+	void*		 update_func;
 } BBrush;
 
 typedef struct BBrushHnd
@@ -53,9 +52,8 @@ typedef void (*brush_update_func)(BBrush*);
 
 void brsh_brush_update_custom(BBrush* brush, brush_update_func func);
 
-struct BBrush* brsh_brush_create(void* wlinehnd, double width);
-struct BBrush* brsh_brush_copy(struct BBrush* brush, void* wlinehnd);
-
+struct BBrush* brsh_brush_create(void* wlinehnddata, double width);
+struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd);
 
 void brsh_brush_offset(struct BBrush* brush);
 
