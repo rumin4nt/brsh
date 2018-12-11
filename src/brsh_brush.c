@@ -18,7 +18,7 @@
 
 //#include <r4/src/core/r_math.h>
 
-#include <r4/src/geo/r_gpc.h>
+//#include <r4/src/geo/r_gpc.h>
 #include <wsh/src/util/wsh_line_ops.h>
 
 static inline double deg2rad(double input)
