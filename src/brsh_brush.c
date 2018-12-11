@@ -20,6 +20,7 @@
 
 //#include <r4/src/geo/r_gpc.h>
 #include <wsh/src/util/wsh_line_ops.h>
+#include <wsh/src/ext/wsh_gpc.h>
 
 static inline double deg2rad(double input)
 {
@@ -95,7 +96,9 @@ struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd)
 void brsh_brush_destroy(BBrush* brush)
 {
 	// free(brush->hnd);
-	brush->hnd->src = NULL;
+	//printf("NOT destroying handles, brushes don't own base data!", brush->hnd->src);
+	//	todo: check and clear other attributes later.
+	
 	free(brush->data);
 	// printf("Destroying a brush for line %p\n", brush->hnd);
 	// free(brush);
@@ -356,7 +359,7 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	//	IMPORTANT
 	wsh_line_ops_smooth(stroke, 4);
 
-	brush->tess = r_gpc_tess_create_wline(stroke);
+	brush->tess = wsh_ext_gpc_tess_create_wline(stroke);
 	wsh_line_ops_smooth(stroke, 8);
 
 	// drw_poly(stroke);
