@@ -19,8 +19,8 @@
 //#include <r4/src/core/r_math.h>
 
 //#include <r4/src/geo/r_gpc.h>
-#include <wsh/src/util/wsh_line_ops.h>
 #include <wsh/src/ext/wsh_gpc.h>
+#include <wsh/src/util/wsh_line_ops.h>
 
 static inline double deg2rad(double input)
 {
@@ -98,7 +98,7 @@ void brsh_brush_destroy(BBrush* brush)
 	// free(brush->hnd);
 	//printf("NOT destroying handles, brushes don't own base data!", brush->hnd->src);
 	//	todo: check and clear other attributes later.
-	
+
 	free(brush->data);
 	// printf("Destroying a brush for line %p\n", brush->hnd);
 	// free(brush);
@@ -175,7 +175,7 @@ void brsh_brush_update(BBrush* brush, brush_update_func func)
 
 		//f(brush);
 
-		// brsh_brush_update_new_slow( brush);
+		//brsh_brush_update_new_slow( brush);
 		brsh_brush_update_old_fast(brush);
 	}
 }
@@ -280,73 +280,75 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	brush->needs_update = false;
 }
 
+#include <wsh/src/util/wsh_math.h>
+
 void brsh_brush_update_old_fast(BBrush* brush)
 {
 
 	if (!brush)
 	{
-		printf("oops");
-		//		oops
+		printf("OOPS\n");
 		return;
 	}
 
-	// printf("Updating brush!\n");
+	WLine* base = brush->hnd->src;
+	if (!base)
+	{
+		printf("OOOOPS\n");
+		return;
+	}
+	if (base->num < 2)
+		return;
 
-	//	todo make this not horrible
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
 
-	WLine* l = brush->hnd->src;
-	if (!l)
-		return;
+	//printf("updating brush w %llu points\n", base->num);
 
-	if (l->num < 2)
-		return;
-	unsigned long long num = l->num;
+	WPoint first = base->data[0];
+	wsh_line_add_point(left, first);
 
-	//WPoint first = l->data[0];
-	//wsh_line_add_point(left, first);
-
-	for (int i = 1; i < num; ++i)
+	for (unsigned long long i = 1; i < base->num - 1; i++)
 	{
-		WPoint p  = l->data[i];
-		double ps = p.pressure;
+		WPoint a = base->data[i - 1];
+		WPoint b = base->data[i + 0];
+		WPoint c = base->data[i + 1];
 
-		double ang = 0;
-		if (i > 1)
-		{
-			WPoint before = l->data[i - 1];
-			double d      = deg2rad(angle_from_points(p.x, p.y, before.x, before.y));
-			ang += d;
-		}
+		double ps = (a.pressure + b.pressure + c.pressure) / 3;
 
-		WPoint p1, p2;
+		double ang = wsh_angle_from_points_wp(a, b);
+		ang -= M_PI_2;
 
-		wsh_point_zero(&p1);
-		wsh_point_zero(&p2);
+		WPoint lp;
+		WPoint rp;
 
-		p1.x = p.x - (ps * cos(ang) * brush->width);
-		p1.y = p.y - (ps * sin(ang) * brush->width);
+		wsh_point_zero(&lp);
+		wsh_point_zero(&rp);
 
-		p2.x = p.x + (ps * cos(ang) * brush->width);
-		p2.y = p.y + (ps * sin(ang) * brush->width);
+		//	old
+		//		p2.x = p.x + (ps * cos(ang) * brush->width);
 
-		wsh_line_add_point(left, p1);
-		wsh_line_add_point(right, p2);
+		lp.x = a.x + (cos(ang) * ps * brush->width);
+		lp.y = a.y + (sin(ang) * ps * brush->width);
+		ang += M_PI;
+		rp.x = a.x + (cos(ang) * ps * brush->width);
+		rp.y = a.y + (sin(ang) * ps * brush->width);
+		wsh_line_add_point(left, lp);
+		wsh_line_add_point(right, rp);
 	}
 
-	WLine* stroke = wsh_line_copy(left);
-	//	todo, replace this loop with the version that I've surely
-	//	already added to the class, yes
+	//	last
+	wsh_line_add_point(right, base->data[base->num - 1]);
 
-	//wsh_line_concat(stroke, right, -1, -1);
+	WLine* stroke = wsh_line_copy(left);
 
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
 		wsh_line_add_point(stroke, right->data[i]);
 	}
 
-	// drw_color(0,0,0,.5);
+	wsh_line_destroy(left);
+	wsh_line_destroy(right);
 
 	stroke->closed     = true;
 	stroke->has_fill   = true;
@@ -356,22 +358,14 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	stroke->fill.b     = 1;
 	stroke->fill.a     = .5;
 
-	//	IMPORTANT
 	wsh_line_ops_smooth(stroke, 4);
-
 	brush->tess = wsh_ext_gpc_tess_create_wline(stroke);
 	wsh_line_ops_smooth(stroke, 8);
-
-	// drw_poly(stroke);
-
-	wsh_line_destroy(left);
-	wsh_line_destroy(right);
 
 	if (brush->stroke)
 	{
 		wsh_line_destroy(brush->stroke);
 	}
-	brush->stroke = stroke;
-
+	brush->stroke       = stroke;
 	brush->needs_update = false;
 }
