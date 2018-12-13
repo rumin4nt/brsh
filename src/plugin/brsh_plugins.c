@@ -99,9 +99,9 @@ void brsh_plugins_init(void)
 					plugin_num++;
 					if ( plugins == NULL )
 					{
-						plugins = calloc(1, sizeof(BrshPlugin));
+						plugins = calloc(1, sizeof(BrshPlugin*));
 					}else{
-						plugins = realloc(plugins, sizeof(BrshPlugin) * plugin_num);
+						plugins = realloc(plugins, sizeof(BrshPlugin*) * plugin_num);
 						
 					}
 				}
