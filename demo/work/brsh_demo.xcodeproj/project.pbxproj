@@ -453,7 +453,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					/usr/local/lib,
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 					../../../../contrib/platform/darwin,
 					../../contrib/platform/darwin,
 					/usr/local/Cellar/cairo/1.14.12/lib,
