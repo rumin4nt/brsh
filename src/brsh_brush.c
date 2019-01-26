@@ -290,13 +290,21 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		printf("OOPS\n");
 		return;
 	}
-
-	WLine* base = brush->hnd->src;
+	WLineHnd* hnd = brush->hnd;
+	WLine* base = hnd->src;
+	
 	if (!base)
 	{
 		printf("OOOOPS\n");
 		return;
 	}
+	
+	if(!base->data)
+	{
+		printf("FUUUCK\n");
+		return;
+	}
+	
 	if (base->num < 2)
 		return;
 
