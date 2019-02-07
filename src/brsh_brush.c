@@ -282,6 +282,21 @@ void brsh_brush_update_new_slow(BBrush* brush)
 
 #include <wsh/src/util/wsh_math.h>
 
+void brsh_brush_update_yellowtail(BBrush* brush)
+{
+	if ( !brush)
+	{
+		printf("WHOOOOPS\n");
+		return;
+	}
+	WLineHnd* hnd = brush->hnd;
+	WLine* base = hnd->src;
+	
+	
+	
+	
+}
+
 void brsh_brush_update_old_fast(BBrush* brush)
 {
 
