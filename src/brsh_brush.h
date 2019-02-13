@@ -39,6 +39,8 @@ typedef struct BBrush
 	double*		 data;
 	void*		 extra;
 	void*		 tess;
+	void*		 tristrip;
+	unsigned long	 tristripnum;
 	unsigned long    num;
 	void*		 update_func;
 } BBrush;
