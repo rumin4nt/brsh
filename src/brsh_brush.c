@@ -21,6 +21,8 @@
 //#include <r4/src/geo/r_gpc.h>
 #include <wsh/src/ext/wsh_gpc.h>
 #include <wsh/src/util/wsh_line_ops.h>
+#include <drw/src/drw_config.h>
+#include <coer/src/c_platform.h>
 
 static inline double deg2rad(double input)
 {
@@ -405,9 +407,12 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	
 	unsigned long long n = 4 + (base->num * 4 );
 	
-	float* arr = calloc(n, sizeof(double));
+#ifdef CPLATFORM_IOS
+	float* arr = calloc((unsigned)n, sizeof(float));
+#else
+	double* arr = calloc(n, sizeof(double));
 	
-
+#endif
 	
 	for ( unsigned i = 1, j = 0 ; i < base->num - 1 ; i++, j+=4 )
 	{
