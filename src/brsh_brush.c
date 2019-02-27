@@ -411,8 +411,9 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	float* arr = calloc((unsigned)n, sizeof(float));
 #else
 	double* arr = calloc(n, sizeof(double));
-	
 #endif
+	
+	
 	
 	for ( unsigned i = 1, j = 0 ; i < base->num - 1 ; i++, j+=4 )
 	{
@@ -447,11 +448,11 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		arr[j+3] = rp.y;
 		
 	}
+	
 	WLine* stroke = NULL;
 	if ( !brush->stroke )
 	{
 		stroke = wsh_line_create();
-		
 	}else{
 		stroke = brush->stroke;
 	}
