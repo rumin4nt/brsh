@@ -265,12 +265,12 @@ void brsh_brush_update_new_slow(BBrush* brush)
 		}
 
 		stroke->closed     = true;
-		stroke->has_fill   = true;
-		stroke->has_stroke = true;
-		stroke->fill.r     = 1;
-		stroke->fill.g     = 0;
-		stroke->fill.b     = 1;
-		stroke->fill.a     = .5;
+//		stroke->has_fill   = true;
+//		stroke->has_stroke = true;
+//		stroke->fill.r     = 1;
+//		stroke->fill.g     = 0;
+//		stroke->fill.b     = 1;
+//		stroke->fill.a     = .5;
 
 		if (brush->stroke)
 		{
@@ -378,13 +378,13 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	wsh_line_destroy(left);
 	wsh_line_destroy(right);
 
-	stroke->closed     = true;
-	stroke->has_fill   = true;
-	stroke->has_stroke = true;
-	stroke->fill.r     = 1;
-	stroke->fill.g     = 0;
-	stroke->fill.b     = 1;
-	stroke->fill.a     = .5;
+//	stroke->closed     = true;
+//	stroke->has_fill   = true;
+//	stroke->has_stroke = true;
+//	stroke->fill.r     = 1;
+//	stroke->fill.g     = 0;
+//	stroke->fill.b     = 1;
+//	stroke->fill.a     = .5;
 
 	wsh_line_ops_smooth(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.
@@ -457,13 +457,13 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		stroke = brush->stroke;
 	}
 	
-	stroke->closed     = true;
-	stroke->has_fill   = true;
-	stroke->has_stroke = true;
-	stroke->fill.r     = 1;
-	stroke->fill.g     = 0;
-	stroke->fill.b     = 1;
-	stroke->fill.a     = .5;
+//	stroke->closed     = true;
+//	stroke->has_fill   = true;
+//	stroke->has_stroke = true;
+//	stroke->fill.r     = 1;
+//	stroke->fill.g     = 0;
+//	stroke->fill.b     = 1;
+//	stroke->fill.a     = .5;
 	
 	wsh_line_ops_smooth(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.

@@ -123,13 +123,13 @@ static int update(void* plugdata)
 
 	// drw_color(0,0,0,.5);
 
-	stroke->closed     = true;
-	stroke->has_fill   = true;
-	stroke->has_stroke = true;
-	stroke->fill.r     = 1;
-	stroke->fill.g     = 0;
-	stroke->fill.b     = 1;
-	stroke->fill.a     = .5;
+	// stroke->closed     = true;
+	// stroke->has_fill   = true;
+	// stroke->has_stroke = true;
+	// stroke->fill.r     = 1;
+	// stroke->fill.g     = 0;
+	// stroke->fill.b     = 1;
+	// stroke->fill.a     = .5;
 
 	//	IMPORTANT
 	//wsh_line_ops_smooth(stroke, 4);
