@@ -19,6 +19,7 @@
 
 #include <stdbool.h>
 #include <wsh/src/geo/wsh_line.h>
+#include <r4/src/geo/r_object.h>
 
 enum
 {
@@ -27,6 +28,13 @@ enum
 	B_BRUSH_TYPE_DISTANCE,
 	B_BRUSH_TYPE_RIDIC
 };
+
+typedef struct
+{
+	unsigned long long seed;
+	void* rng;
+	void* data;
+}BBrushCustom;
 
 typedef struct BBrush
 {
@@ -43,6 +51,9 @@ typedef struct BBrush
 	unsigned long	 tristripnum;
 	unsigned long    num;
 	void*		 update_func;
+	void*		 object;
+	void*		custom;
+	
 } BBrush;
 
 typedef struct BBrushHnd
@@ -56,6 +67,7 @@ void brsh_brush_update_custom(BBrush* brush, brush_update_func func);
 
 struct BBrush* brsh_brush_create(void* wlinehnddata, double width);
 struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd);
+struct BBrush* brsh_brush_copy_without_data(BBrush* brush);
 
 void brsh_brush_offset(struct BBrush* brush);
 

@@ -424,8 +424,8 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		ps = sqrt(ps);
 		ps = pow(ps, 2);
 		//ps = pow(ps, 2);
-		if ( i == 1 || i == base->num-2 )
-			ps *= .2;
+		//if ( i == 1 || i == base->num-2 )
+		//	ps *= .2;
 		
 		double ang = wsh_angle_from_points_wp(a, b);
 		ang -= M_PI_2;
@@ -448,7 +448,7 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		arr[j+3] = rp.y;
 		
 	}
-	
+	/*
 	WLine* stroke = NULL;
 	if ( !brush->stroke )
 	{
@@ -457,18 +457,12 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		stroke = brush->stroke;
 	}
 	
-//	stroke->closed     = true;
-//	stroke->has_fill   = true;
-//	stroke->has_stroke = true;
-//	stroke->fill.r     = 1;
-//	stroke->fill.g     = 0;
-//	stroke->fill.b     = 1;
-//	stroke->fill.a     = .5;
 	
 	wsh_line_ops_smooth(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.
 	//	REMOVE IT AT YOUR PERIL;
-	//brush->tess = wsh_ext_gpc_tess_create_wline(stroke);
+	//	idk I think this info ^ might be out of date.
+	
 	wsh_line_ops_smooth(stroke, 8);
 	
 	if (brush->stroke)
@@ -476,18 +470,9 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		wsh_line_destroy(brush->stroke);
 	}
 	brush->stroke       = stroke;
-	brush->needs_update = false;
-//	WPoint first = base->data[0];
-//	arr[0] = first.x;
-//	arr[1] = first.y;
-	//arr[2] = first.x;
-	//arr[3] = first.y;
+	*/
 	
-//	WPoint last = base->data[base->num-1];
-	//arr[n-4] = last.x;
-	//arr[n-3] = last.y;
-//	arr[n-2] = last.x;
-//	arr[n-1] = last.y;
+	brush->needs_update = false;
 	
 	brush->tristrip = arr;
 	//	HACK HACK HACK
