@@ -35,6 +35,8 @@ typedef struct BBrush
 	bool		 needs_update;
 	double		 width;
 	struct WLineHnd* hnd;
+	//	ostensibly, this is wasteful and should be an rline
+	//	but that's a library dep I don't need I guess
 	struct WLine*    stroke;
 	double*		 data;
 	void*		 extra;
