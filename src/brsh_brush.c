@@ -460,8 +460,9 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	}
 	
 	
-	//WPoint first = base->data[0];
-	//WPoint last = base->data[base->num -1 ];
+
+	WPoint first = base->data[0];
+	WPoint last = base->data[base->num -1 ];
 	
 	
 	arr[0] = first.x;
