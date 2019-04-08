@@ -413,7 +413,14 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	double* arr = calloc(n, sizeof(double));
 #endif
 	
+	WLine* left  = wsh_line_create();
+	WLine* right = wsh_line_create();
 	
+	//printf("updating brush w %llu points\n", base->num);
+	
+	//WPoint first = base->data[0];
+	//wsh_line_add_point(left, first);
+
 
 	for ( unsigned i = 1, j = 2 ; i < base->num - 1 ; i++, j+=4 )
 	{
@@ -447,15 +454,19 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		arr[j+2] = rp.x;
 		arr[j+3] = rp.y;
 		
+		wsh_line_add_point(left, lp);
+		wsh_line_add_point(right, rp);
+		
 	}
 	
 	
-	WPoint first = base->data[0];
-	WPoint last = base->data[base->num -1 ];
+
+	//WPoint first = base->data[0];
+	//WPoint last = base->data[base->num -1 ];
 	
-	
-	arr[0] = first.x;
-	arr[1] = first.y;
+//	
+//	arr[0] = first.x;
+//	arr[1] = first.y;
 
 	/*
 	WLine* stroke = NULL;
@@ -480,6 +491,20 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	}
 	brush->stroke       = stroke;
 	*/
+	//	last
+	//wsh_line_add_point(right, base->data[base->num - 1]);
+	
+	WLine* stroke = wsh_line_copy(left);
+	
+	for (signed long long i = right->num - 1; i > 0; i--)
+	{
+		wsh_line_add_point(stroke, right->data[i]);
+	}
+	
+	wsh_line_destroy(left);
+	wsh_line_destroy(right);
+	
+	brush->stroke = stroke;
 	
 	brush->needs_update = false;
 	
