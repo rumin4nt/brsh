@@ -418,8 +418,10 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	
 	//printf("updating brush w %llu points\n", base->num);
 	
-	//WPoint first = base->data[0];
-	//wsh_line_add_point(left, first);
+
+	WPoint first = base->data[0];
+	wsh_line_add_point(left, first);
+
 
 
 	for ( unsigned i = 1, j = 2 ; i < base->num - 1 ; i++, j+=4 )
@@ -461,8 +463,10 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	
 	
 
+	
 	//WPoint first = base->data[0];
 	//WPoint last = base->data[base->num -1 ];
+
 	
 //	
 //	arr[0] = first.x;
@@ -492,8 +496,9 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	brush->stroke       = stroke;
 	*/
 	//	last
+
 	//wsh_line_add_point(right, base->data[base->num - 1]);
-	
+
 	WLine* stroke = wsh_line_copy(left);
 	
 	for (signed long long i = right->num - 1; i > 0; i--)
