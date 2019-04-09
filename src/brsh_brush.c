@@ -405,7 +405,7 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	//RLine* rl = r_line_create();
 	WLine* base = brush->hnd->src;
 	
-	unsigned long long n = 4 + (base->num * 4 );
+	unsigned long long n = 2 + (base->num * 4 );
 	
 #ifdef CPLATFORM_IOS
 	float* arr = calloc((unsigned)n, sizeof(float));
@@ -419,9 +419,14 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	//printf("updating brush w %llu points\n", base->num);
 	
 
-	WPoint first = base->data[0];
-	wsh_line_add_point(left, first);
 
+/*	wsh_line_add_point(left, first);
+=======
+	//WPoint first = base->data[0];
+	//wsh_line_add_point(left, first);
+
+>>>>>>> Stashed changes
+*/
 
 
 	for ( unsigned i = 1, j = 2 ; i < base->num - 1 ; i++, j+=4 )
@@ -464,13 +469,10 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	
 
 	
-	//WPoint first = base->data[0];
-	//WPoint last = base->data[base->num -1 ];
+	WPoint first = base->data[0];
 
-	
-//	
-//	arr[0] = first.x;
-//	arr[1] = first.y;
+	arr[0] = first.x;
+arr[1] = first.y;
 
 	/*
 	WLine* stroke = NULL;
@@ -512,6 +514,7 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	brush->stroke = stroke;
 	
 	brush->needs_update = false;
+	
 	
 	brush->tristrip = arr;
 	//	HACK HACK HACK
