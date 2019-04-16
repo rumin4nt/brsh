@@ -400,6 +400,8 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	brush->needs_update = false;
 }
 
+#define HACK_CLAMP_N 5
+
 void brsh_brush_update_tristrip(BBrush* brush)
 {
 	//RLine* rl = r_line_create();
@@ -416,18 +418,6 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
 	
-	//printf("updating brush w %llu points\n", base->num);
-	
-
-
-/*	wsh_line_add_point(left, first);
-=======
-	//WPoint first = base->data[0];
-	//wsh_line_add_point(left, first);
-
->>>>>>> Stashed changes
-*/
-
 
 	for ( unsigned i = 1, j = 2 ; i < base->num - 1 ; i++, j+=4 )
 	{
@@ -435,8 +425,22 @@ void brsh_brush_update_tristrip(BBrush* brush)
 		WPoint b = base->data[i + 0];
 		WPoint c = base->data[i + 1];
 		double ps = (a.pressure + b.pressure + c.pressure) / 3;
+		
 		ps = sqrt(ps);
 		ps = pow(ps, 2);
+		
+		if ( i <  HACK_CLAMP_N)
+		{
+			double clamp = sqrt(1.0 / (HACK_CLAMP_N-i));
+			
+			if ( clamp < 1 )
+				ps *= clamp;
+			
+			//printf("CLAMP %f\n", clamp);
+			
+		}else{
+			//printf("//--");
+		}
 		//ps = pow(ps, 2);
 		//if ( i == 1 || i == base->num-2 )
 		//	ps *= .2;
@@ -470,9 +474,9 @@ void brsh_brush_update_tristrip(BBrush* brush)
 
 	
 	WPoint first = base->data[0];
-
+	
 	arr[0] = first.x;
-arr[1] = first.y;
+	arr[1] = first.y;
 
 	/*
 	WLine* stroke = NULL;

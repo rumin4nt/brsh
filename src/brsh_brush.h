@@ -42,6 +42,7 @@ typedef struct BBrush
 	void*		 extra;
 	void*		 tess;
 	void*		 tristrip;
+	void* 		paint;
 	unsigned long	 tristripnum;
 	unsigned long    num;
 	void*		 update_func;
