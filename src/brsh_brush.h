@@ -31,21 +31,22 @@ enum
 typedef struct BBrush
 {
 
-	int		 brush_type;
-	bool		 needs_update;
-	double		 width;
-	struct WLineHnd* hnd;
+	int	   brush_type;
+	bool	  needs_update;
+	double	width;
+	WLineHndConst* hnd;
 	//	ostensibly, this is wasteful and should be an rline
 	//	but that's a library dep I don't need I guess
-	struct WLine*    stroke;
-	double*		 data;
-	void*		 extra;
-	void*		 tess;
-	void*		 tristrip;
-	void* 		paint;
-	unsigned long	 tristripnum;
-	unsigned long    num;
-	void*		 update_func;
+	struct WLine* stroke;
+	double*       data;
+	void*	 extra;
+	void*	 tess;
+	void*	 tristrip;
+	void*	 paint;
+	unsigned long tristripnum;
+	unsigned long num;
+	void*	 update_func;
+	unsigned long long seed;
 } BBrush;
 
 typedef struct BBrushHnd
@@ -55,9 +56,12 @@ typedef struct BBrushHnd
 
 typedef void (*brush_update_func)(BBrush*);
 
-void brsh_brush_update_custom(BBrush* brush, brush_update_func func);
+unsigned long brsh_request_seed(void);
+void	  brsh_brush_update_custom(BBrush* brush, brush_update_func func);
 
-struct BBrush* brsh_brush_create(void* wlinehnddata, double width);
+struct BBrush* brsh_brush_create(WLineHndConst hnd, double width);
+struct BBrush* brsh_brush_create_ptr(WLineHndConst* hnd_ptr, double width);
+
 struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd);
 
 void brsh_brush_offset(struct BBrush* brush);

@@ -19,10 +19,12 @@
 //#include <r4/src/core/r_math.h>
 
 //#include <r4/src/geo/r_gpc.h>
+#include <coer/src/c_platform.h>
+#include <drw/src/drw_config.h>
 #include <wsh/src/ext/wsh_gpc.h>
 #include <wsh/src/util/wsh_line_ops.h>
-#include <drw/src/drw_config.h>
-#include <coer/src/c_platform.h>
+
+static unsigned long seed = 0;
 
 static inline double deg2rad(double input)
 {
@@ -39,9 +41,30 @@ void brsh_brush_update_new_slow(BBrush* brush);
 void brsh_brush_update_old_fast(BBrush* brush);
 void brsh_brush_update_tristrip(BBrush* brush);
 
-BBrush* brsh_brush_create(void* data, double width)
+unsigned long brsh_request_seed(void)
 {
-	WLineHnd* hnd = (WLineHnd*)data;
+	return ++seed;
+}
+struct BBrush* brsh_brush_create_ptr(WLineHndConst* hnd_ptr, double width)
+{
+	//WLineHnd* hnd = (WLineHnd*)data;
+	//printf("Creating brush with width %f\n", width);
+	BBrush* brush       = calloc(1, sizeof(BBrush));
+	brush->hnd	  = hnd_ptr;
+	brush->needs_update = true;
+	brush->data	 = NULL;
+	brush->data	 = 0;
+	brush->stroke       = NULL;
+	brush->width	= width;
+	brush->update_func  = NULL;
+	brush->tess	 = NULL;
+	brush->seed	 = brsh_request_seed();
+	return brush;
+}
+
+struct BBrush* brsh_brush_create(WLineHndConst hnd, double width)
+{
+	/*//WLineHnd* hnd = (WLineHnd*)data;
 	//printf("Creating brush with width %f\n", width);
 	BBrush* brush       = calloc(1, sizeof(BBrush));
 	brush->hnd	  = hnd;
@@ -52,7 +75,11 @@ BBrush* brsh_brush_create(void* data, double width)
 	brush->width	= width;
 	brush->update_func  = NULL;
 	brush->tess	 = NULL;
-	return brush;
+	brush->seed	 = brsh_request_seed();
+	return brush;*/
+	
+	return NULL;
+	
 }
 
 struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd)
@@ -218,7 +245,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	double px, py;
 	double x, y;
 	px = py = x = y = nx = ny = 0;
-	WLine* src		  = brush->hnd->src;
+	const WLine* src	  = brush->hnd->src;
 
 	WLine* cpy = wsh_line_copy(src);
 	wsh_line_ops_smooth(cpy, 4);
@@ -264,13 +291,13 @@ void brsh_brush_update_new_slow(BBrush* brush)
 			wsh_line_add_point(stroke, p);
 		}
 
-		stroke->closed     = true;
-//		stroke->has_fill   = true;
-//		stroke->has_stroke = true;
-//		stroke->fill.r     = 1;
-//		stroke->fill.g     = 0;
-//		stroke->fill.b     = 1;
-//		stroke->fill.a     = .5;
+		stroke->closed = true;
+		//		stroke->has_fill   = true;
+		//		stroke->has_stroke = true;
+		//		stroke->fill.r     = 1;
+		//		stroke->fill.g     = 0;
+		//		stroke->fill.b     = 1;
+		//		stroke->fill.a     = .5;
 
 		if (brush->stroke)
 		{
@@ -288,19 +315,14 @@ void brsh_brush_update_new_slow(BBrush* brush)
 
 void brsh_brush_update_yellowtail(BBrush* brush)
 {
-	if ( !brush)
+	if (!brush)
 	{
 		printf("WHOOOOPS\n");
 		return;
 	}
-	WLineHnd* hnd = brush->hnd;
-	WLine* base = hnd->src;
-	
-	
-	
-	
+	WLineHndConst* hnd  = brush->hnd;
+	const WLine*  base = hnd->src;
 }
-
 
 void brsh_brush_update_old_fast(BBrush* brush)
 {
@@ -310,21 +332,21 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		printf("OOPS\n");
 		return;
 	}
-	WLineHnd* hnd = brush->hnd;
-	WLine* base = hnd->src;
-	
+	WLineHndConst* hnd  = brush->hnd;
+	const WLine*  base = hnd->src;
+
 	if (!base)
 	{
 		printf("OOOOPS\n");
 		return;
 	}
-	
-	if(!base->data)
+
+	if (!base->data)
 	{
 		printf("FUUUCK\n");
 		return;
 	}
-	
+
 	if (base->num < 2)
 		return;
 
@@ -378,13 +400,13 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	wsh_line_destroy(left);
 	wsh_line_destroy(right);
 
-//	stroke->closed     = true;
-//	stroke->has_fill   = true;
-//	stroke->has_stroke = true;
-//	stroke->fill.r     = 1;
-//	stroke->fill.g     = 0;
-//	stroke->fill.b     = 1;
-//	stroke->fill.a     = .5;
+	//	stroke->closed     = true;
+	//	stroke->has_fill   = true;
+	//	stroke->has_stroke = true;
+	//	stroke->fill.r     = 1;
+	//	stroke->fill.g     = 0;
+	//	stroke->fill.b     = 1;
+	//	stroke->fill.a     = .5;
 
 	wsh_line_ops_smooth(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.
@@ -405,76 +427,72 @@ void brsh_brush_update_old_fast(BBrush* brush)
 void brsh_brush_update_tristrip(BBrush* brush)
 {
 	//RLine* rl = r_line_create();
-	WLine* base = brush->hnd->src;
-	
-	unsigned long long n = 2 + (base->num * 4 );
-	
+	const WLine* base = brush->hnd->src;
+
+	unsigned long long n = 2 + (base->num * 4);
+
 #ifdef CPLATFORM_IOS
 	float* arr = calloc((unsigned)n, sizeof(float));
 #else
 	double* arr = calloc(n, sizeof(double));
 #endif
-	
+
 	WLine* left  = wsh_line_create();
 	WLine* right = wsh_line_create();
-	
 
-	for ( unsigned i = 1, j = 2 ; i < base->num - 1 ; i++, j+=4 )
+	for (unsigned i = 1, j = 2; i < base->num - 1; i++, j += 4)
 	{
-		WPoint a = base->data[i - 1];
-		WPoint b = base->data[i + 0];
-		WPoint c = base->data[i + 1];
+		WPoint a  = base->data[i - 1];
+		WPoint b  = base->data[i + 0];
+		WPoint c  = base->data[i + 1];
 		double ps = (a.pressure + b.pressure + c.pressure) / 3;
-		
+
 		ps = sqrt(ps);
 		ps = pow(ps, 2);
-		
-		if ( i <  HACK_CLAMP_N)
+
+		if (i < HACK_CLAMP_N)
 		{
-			double clamp = sqrt(1.0 / (HACK_CLAMP_N-i));
-			
-			if ( clamp < 1 )
+			double clamp = sqrt(1.0 / (HACK_CLAMP_N - i));
+
+			if (clamp < 1)
 				ps *= clamp;
-			
+
 			//printf("CLAMP %f\n", clamp);
-			
-		}else{
+		}
+		else
+		{
 			//printf("//--");
 		}
 		//ps = pow(ps, 2);
 		//if ( i == 1 || i == base->num-2 )
 		//	ps *= .2;
-		
+
 		double ang = wsh_angle_from_points_wp(a, b);
 		ang -= M_PI_2;
-		
+
 		WPoint lp;
 		WPoint rp;
-		
+
 		wsh_point_zero(&lp);
 		wsh_point_zero(&rp);
-		
+
 		lp.x = a.x + (cos(ang) * ps * brush->width);
 		lp.y = a.y + (sin(ang) * ps * brush->width);
 		ang += M_PI;
 		rp.x = a.x + (cos(ang) * ps * brush->width);
 		rp.y = a.y + (sin(ang) * ps * brush->width);
-		
-		arr[j+0] = lp.x;
-		arr[j+1] = lp.y;
-		arr[j+2] = rp.x;
-		arr[j+3] = rp.y;
-		
+
+		arr[j + 0] = lp.x;
+		arr[j + 1] = lp.y;
+		arr[j + 2] = rp.x;
+		arr[j + 3] = rp.y;
+
 		wsh_line_add_point(left, lp);
 		wsh_line_add_point(right, rp);
-		
 	}
-	
-	
 
-	
 	WPoint first = base->data[0];
-	
+
 	arr[0] = first.x;
 	arr[1] = first.y;
 
@@ -486,15 +504,15 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	}else{
 		stroke = brush->stroke;
 	}
-	
-	
+
+
 	wsh_line_ops_smooth(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.
 	//	REMOVE IT AT YOUR PERIL;
 	//	idk I think this info ^ might be out of date.
-	
+
 	wsh_line_ops_smooth(stroke, 8);
-	
+
 	if (brush->stroke)
 	{
 		wsh_line_destroy(brush->stroke);
@@ -506,28 +524,23 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	//wsh_line_add_point(right, base->data[base->num - 1]);
 
 	WLine* stroke = wsh_line_copy(left);
-	
+
 	for (signed long long i = right->num - 1; i > 0; i--)
 	{
 		wsh_line_add_point(stroke, right->data[i]);
 	}
-	
+
 	wsh_line_destroy(left);
 	wsh_line_destroy(right);
-	
+
 	brush->stroke = stroke;
-	
+
 	brush->needs_update = false;
-	
-	
+
 	brush->tristrip = arr;
 	//	HACK HACK HACK
 	brush->tristripnum = base->num * 2;
-	
+
 	//HACK
 	brush->tristripnum -= 4;
-
-	
 }
-
-
