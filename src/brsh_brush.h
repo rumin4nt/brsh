@@ -60,7 +60,7 @@ unsigned long brsh_request_seed(void);
 void	  brsh_brush_update_custom(BBrush* brush, brush_update_func func);
 
 struct BBrush* brsh_brush_create(WLineHndConst hnd, double width);
-struct BBrush* brsh_brush_create_ptr(WLineHndConst* hnd_ptr, double width);
+struct BBrush* brsh_brush_create_ptr(const WLineHndConst* hnd_ptr);
 
 struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd);
 

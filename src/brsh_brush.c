@@ -45,7 +45,7 @@ unsigned long brsh_request_seed(void)
 {
 	return ++seed;
 }
-struct BBrush* brsh_brush_create_ptr(WLineHndConst* hnd_ptr, double width)
+struct BBrush* brsh_brush_create_ptr(const WLineHndConst* hnd_ptr)
 {
 	//WLineHnd* hnd = (WLineHnd*)data;
 	//printf("Creating brush with width %f\n", width);
@@ -55,7 +55,7 @@ struct BBrush* brsh_brush_create_ptr(WLineHndConst* hnd_ptr, double width)
 	brush->data	 = NULL;
 	brush->data	 = 0;
 	brush->stroke       = NULL;
-	brush->width	= width;
+	brush->width	= hnd_ptr->src->width;
 	brush->update_func  = NULL;
 	brush->tess	 = NULL;
 	brush->seed	 = brsh_request_seed();
@@ -187,6 +187,7 @@ void brsh_brush_update(BBrush* brush, brush_update_func func)
 	}
 	//if ( brush->hnd.src )
 
+	//printf("Updating a brush of phat %f\n", brush->hnd->src->width);
 	//	if we pass a function directly to this function, can assume we are overriding.
 	if (func)
 	{
@@ -429,6 +430,17 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	//RLine* rl = r_line_create();
 	const WLine* base = brush->hnd->src;
 
+	if ( !base )
+	{
+		printf("No BASE\n");
+		return;
+	}
+	
+	if ( !base->data )
+	{
+		printf("No BASE DATA\n");
+		return;
+	}
 	unsigned long long n = 2 + (base->num * 4);
 
 #ifdef CPLATFORM_IOS
