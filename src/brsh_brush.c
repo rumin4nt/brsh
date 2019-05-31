@@ -19,8 +19,8 @@
 //#include <r4/src/core/r_math.h>
 
 //#include <r4/src/geo/r_gpc.h>
-#include <coer/src/c_platform.h>
-#include <drw/src/drw_config.h>
+//#include <coer/src/c_platform.h>
+//#include <drw/src/drw_config.h>
 #include <wsh/src/ext/wsh_gpc.h>
 #include <wsh/src/util/wsh_line_ops.h>
 
@@ -77,9 +77,8 @@ struct BBrush* brsh_brush_create(WLineHndConst hnd, double width)
 	brush->tess	 = NULL;
 	brush->seed	 = brsh_request_seed();
 	return brush;*/
-	
+
 	return NULL;
-	
 }
 
 struct BBrush* brsh_brush_copy(void* wlinehnddata_old, void* wlinehnd)
@@ -293,8 +292,8 @@ void brsh_brush_update_new_slow(BBrush* brush)
 		}
 
 		stroke->closed = true;
-		//		stroke->has_fill   = true;
-		//		stroke->has_stroke = true;
+		//		stroke->fill   = true;
+		//		stroke->stroke = true;
 		//		stroke->fill.r     = 1;
 		//		stroke->fill.g     = 0;
 		//		stroke->fill.b     = 1;
@@ -322,7 +321,7 @@ void brsh_brush_update_yellowtail(BBrush* brush)
 		return;
 	}
 	WLineHndConst* hnd  = brush->hnd;
-	const WLine*  base = hnd->src;
+	const WLine*   base = hnd->src;
 }
 
 void brsh_brush_update_old_fast(BBrush* brush)
@@ -334,7 +333,7 @@ void brsh_brush_update_old_fast(BBrush* brush)
 		return;
 	}
 	WLineHndConst* hnd  = brush->hnd;
-	const WLine*  base = hnd->src;
+	const WLine*   base = hnd->src;
 
 	if (!base)
 	{
@@ -402,8 +401,8 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	wsh_line_destroy(right);
 
 	//	stroke->closed     = true;
-	//	stroke->has_fill   = true;
-	//	stroke->has_stroke = true;
+	//	stroke->fill   = true;
+	//	stroke->stroke = true;
 	//	stroke->fill.r     = 1;
 	//	stroke->fill.g     = 0;
 	//	stroke->fill.b     = 1;
@@ -430,13 +429,13 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	//RLine* rl = r_line_create();
 	const WLine* base = brush->hnd->src;
 
-	if ( !base )
+	if (!base)
 	{
 		printf("No BASE\n");
 		return;
 	}
-	
-	if ( !base->data )
+
+	if (!base->data)
 	{
 		printf("No BASE DATA\n");
 		return;

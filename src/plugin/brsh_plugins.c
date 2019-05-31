@@ -11,7 +11,7 @@
 #include "../../brsh_config.h"
 #include "brsh_plugin.h"
 
-#include "include/tinydir.h"
+#include <tinydir/tinydir.h>
 #include <dlfcn.h>
 #include <mkdirp/mkdirp.h>
 #include <wildcardcmp/wildcardcmp.h>
