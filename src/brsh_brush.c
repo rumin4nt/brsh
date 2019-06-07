@@ -19,8 +19,8 @@
 //#include <r4/src/core/r_math.h>
 
 //#include <r4/src/geo/r_gpc.h>
-//#include <coer/src/c_platform.h>
-//#include <drw/src/drw_config.h>
+#include <coer/src/c_platform.h>
+#include <drw/src/drw_config.h>
 #include <wsh/src/ext/wsh_gpc.h>
 #include <wsh/src/util/wsh_line_ops.h>
 
