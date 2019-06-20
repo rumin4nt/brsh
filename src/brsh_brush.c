@@ -248,7 +248,7 @@ void brsh_brush_update_new_slow(BBrush* brush)
 	const WLine* src	  = brush->hnd->src;
 
 	WLine* cpy = wsh_line_copy(src);
-	wsh_line_ops_smooth(cpy, 4);
+	wsh_line_ops_smooth_inplace(cpy, 4);
 	printf("cpy line for brush has %llu points\n", cpy->num);
 	printf("src line for brush has %llu points\n", src->num);
 	WLine* stroke = wsh_line_create();
@@ -408,11 +408,11 @@ void brsh_brush_update_old_fast(BBrush* brush)
 	//	stroke->fill.b     = 1;
 	//	stroke->fill.a     = .5;
 
-	wsh_line_ops_smooth(stroke, 4);
+	wsh_line_ops_smooth_inplace(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.
 	//	REMOVE IT AT YOUR PERIL;
 	//brush->tess = wsh_ext_gpc_tess_create_wline(stroke);
-	wsh_line_ops_smooth(stroke, 8);
+	wsh_line_ops_smooth_inplace(stroke, 8);
 
 	if (brush->stroke)
 	{
@@ -517,12 +517,12 @@ void brsh_brush_update_tristrip(BBrush* brush)
 	}
 
 
-	wsh_line_ops_smooth(stroke, 4);
+	wsh_line_ops_smooth_inplace(stroke, 4);
 	//	todo: THIS IS THE ABSOLUTE KEY BIT TO MAKING THE TESSELATED STROKES.
 	//	REMOVE IT AT YOUR PERIL;
 	//	idk I think this info ^ might be out of date.
 
-	wsh_line_ops_smooth(stroke, 8);
+	wsh_line_ops_smooth_inplace(stroke, 8);
 
 	if (brush->stroke)
 	{

@@ -132,10 +132,10 @@ static int update(void* plugdata)
 	// stroke->fill.a     = .5;
 
 	//	IMPORTANT
-	//wsh_line_ops_smooth(stroke, 4);
+	//wsh_line_ops_smooth_inplace(stroke, 4);
 
 	//brush->tess = r_gpc_tess_create(stroke);
-	//wsh_line_ops_smooth(stroke, 8);
+	//wsh_line_ops_smooth_inplace(stroke, 8);
 
 	// drw_poly(stroke);
 
